@@ -8,15 +8,14 @@ struct PlaylistCardView: View {
             Text(playlist.name)
                 .font(.title3)
                 .bold()
+                .lineLimit(1)
+                .truncationMode(.tail)
 
             Text(playlist.baseURL)
                 .font(.footnote)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
-
-            Text(playlist.username)
-                .font(.footnote)
-                .foregroundStyle(.secondary)
+                .truncationMode(.tail)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)

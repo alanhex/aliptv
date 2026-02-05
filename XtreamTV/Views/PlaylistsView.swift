@@ -21,9 +21,15 @@ struct PlaylistsView: View {
 
                     Spacer()
 
-                    Button("Ajouter") {
+                    Button {
                         showingAdd = true
+                    } label: {
+                        Text("Ajouter")
+                            .font(.callout.weight(.semibold))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.9)
                     }
+                    .frame(minWidth: 140)
                     .buttonStyle(.borderedProminent)
                 }
 
@@ -32,26 +38,42 @@ struct PlaylistsView: View {
                         .font(.title3)
                         .foregroundStyle(.secondary)
 
-                    Button("Changer") {
+                    Button {
                         sortOption = sortOption.next
+                    } label: {
+                        Text("Changer")
+                            .font(.callout.weight(.semibold))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.9)
                     }
+                    .frame(minWidth: 140)
                     .buttonStyle(.bordered)
                 }
 
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 320), spacing: 20)], spacing: 20) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 380), spacing: 20)], spacing: 20) {
                     ForEach(sortedPlaylists) { playlist in
-                        Button {
-                            selectedPlaylist = playlist
-                        } label: {
-                            PlaylistCardView(playlist: playlist)
-                        }
-                        .buttonStyle(.card)
-                        .contextMenu {
-                            Button("Éditer") {
-                                editingPlaylist = playlist
+                        VStack(alignment: .leading, spacing: 12) {
+                            Button {
+                                selectedPlaylist = playlist
+                            } label: {
+                                PlaylistCardView(playlist: playlist)
                             }
-                            Button("Supprimer", role: .destructive) {
-                                delete(playlist)
+                            .buttonStyle(.card)
+
+                            HStack(spacing: 12) {
+                                Button("Éditer") {
+                                    editingPlaylist = playlist
+                                }
+                                .frame(minWidth: 140)
+                                .buttonStyle(.bordered)
+
+                                Button("Supprimer", role: .destructive) {
+                                    delete(playlist)
+                                }
+                                .frame(minWidth: 250)
+                                .buttonStyle(.bordered)
+
+                                Spacer()
                             }
                         }
                     }
