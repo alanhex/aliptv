@@ -68,48 +68,82 @@ struct SidebarView: View {
             .padding(.vertical, 24)
             .padding(.horizontal, 12)
         }
-        .frame(width: expanded ? 280 : 90)
+        .frame(width: expanded ? 380 : 90)
         .animation(.easeInOut(duration: 0.2), value: expanded)
         .focusSection()
         .background(Color.black.opacity(0.2))
     }
 
     private func sidebarButton(for item: SidebarItem, expanded: Bool, indent: CGFloat = 0) -> some View {
-        Button {
+        let isFocused = focusedItem == .item(item)
+
+        return HStack(spacing: 16) {
+            Image(systemName: item.systemImage)
+                .font(.title3)
+                .frame(width: 32)
+
+            if expanded {
+                Text(item.title)
+                    .font(.callout)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .padding(.leading, 4)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 30)
+        .padding(.leading, indent)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(isFocused ? Color.white.opacity(0.18) : Color.clear)
+        )
+        .contentShape(RoundedRectangle(cornerRadius: 10))
+        .focusable(true)
+        .focused($focusedItem, equals: .item(item))
+        .onTapGesture {
             if item.section == .addPlaylist {
                 onAddPlaylist()
             } else {
                 selectedSection = item.section
             }
-        } label: {
-            HStack(spacing: 16) {
-                Image(systemName: item.systemImage)
-                    .font(.title3)
-                    .frame(width: 32)
-
-                if expanded {
-                    Text(item.title)
-                        .font(.callout)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .padding(.leading, 4)
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 10)
-            .padding(.horizontal, 12)
-            .padding(.leading, indent)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(selectedSection == item.section ? Color.white.opacity(0.15) : Color.clear)
-            )
         }
-        .buttonStyle(.plain)
-        .focused($focusedItem, equals: .item(item))
     }
 
     private func playlistHeader(playlist: Playlist, expanded: Bool) -> some View {
-        Button {
+        let isFocused = focusedItem == .playlistHeader(playlist.id)
+
+        return HStack(spacing: 16) {
+            Image(systemName: expandedPlaylists.contains(playlist.id) ? "chevron.down" : "chevron.right")
+                .font(.callout)
+                .frame(width: 20)
+
+            Image(systemName: "rectangle.stack")
+                .font(.title3)
+                .frame(width: 32)
+
+            if expanded {
+                Text(playlist.name)
+                    .font(.subheadline)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .padding(.leading, 4)
+            }
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, 6)
+        .padding(.horizontal, 10)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(isFocused ? Color.white.opacity(0.12) : Color.clear)
+        )
+        .contentShape(RoundedRectangle(cornerRadius: 10))
+        .focusable(true)
+        .focused($focusedItem, equals: .playlistHeader(playlist.id))
+        .foregroundStyle(.secondary)
+        .onTapGesture {
             withAnimation(.easeInOut(duration: 0.2)) {
                 if expandedPlaylists.contains(playlist.id) {
                     expandedPlaylists.remove(playlist.id)
@@ -117,33 +151,7 @@ struct SidebarView: View {
                     expandedPlaylists.insert(playlist.id)
                 }
             }
-        } label: {
-            HStack(spacing: 16) {
-                Image(systemName: expandedPlaylists.contains(playlist.id) ? "chevron.down" : "chevron.right")
-                    .font(.callout)
-                    .frame(width: 20)
-
-                Image(systemName: "rectangle.stack")
-                    .font(.title3)
-                    .frame(width: 32)
-
-                if expanded {
-                    Text(playlist.name)
-                        .font(.subheadline)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .padding(.leading, 4)
-                }
-
-                Spacer()
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 6)
-            .padding(.horizontal, 12)
         }
-        .buttonStyle(.plain)
-        .foregroundStyle(.secondary)
-        .focused($focusedItem, equals: .playlistHeader(playlist.id))
     }
 
     private var mainItems: [SidebarItem] {
