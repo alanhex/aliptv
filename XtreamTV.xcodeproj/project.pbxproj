@@ -1,0 +1,381 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA1A11111111111111111111 /* XtreamTVApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000001 /* XtreamTVApp.swift */; };
+		AA1A11111111111111111112 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000002 /* LoginView.swift */; };
+		AA1A11111111111111111113 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000003 /* DashboardView.swift */; };
+		AA1A11111111111111111114 /* StreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000004 /* StreamListView.swift */; };
+		AA1A11111111111111111115 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000005 /* PlayerView.swift */; };
+		AA1A11111111111111111116 /* CategoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000006 /* CategoryCardView.swift */; };
+		AA1A11111111111111111117 /* StreamCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000007 /* StreamCardView.swift */; };
+		AA1A11111111111111111118 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000008 /* AuthViewModel.swift */; };
+		AA1A11111111111111111119 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000009 /* DashboardViewModel.swift */; };
+		AA1A1111111111111111111A /* StreamListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000000A /* StreamListViewModel.swift */; };
+		AA1A1111111111111111111B /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000000B /* PlayerViewModel.swift */; };
+		AA1A1111111111111111111C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000000C /* Category.swift */; };
+		AA1A1111111111111111111D /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000000D /* Stream.swift */; };
+		AA1A1111111111111111111E /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000000E /* AuthResponse.swift */; };
+		AA1A1111111111111111111F /* XtreamAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000000F /* XtreamAPIClient.swift */; };
+		AA1A11111111111111111120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000010 /* Assets.xcassets */; };
+		AA1A11111111111111111121 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000012 /* Playlist.swift */; };
+		AA1A11111111111111111122 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000013 /* OnboardingView.swift */; };
+		AA1A11111111111111111123 /* PlaylistFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000014 /* PlaylistFormView.swift */; };
+		AA1A11111111111111111124 /* PlaylistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000015 /* PlaylistsView.swift */; };
+		AA1A11111111111111111125 /* PlaylistCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000016 /* PlaylistCardView.swift */; };
+		AA1A11111111111111111126 /* Series.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000017 /* Series.swift */; };
+		AA1A11111111111111111127 /* FavoriteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000018 /* FavoriteItem.swift */; };
+		AA1A11111111111111111128 /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000019 /* MediaType.swift */; };
+		AA1A11111111111111111129 /* SeriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000001A /* SeriesListViewModel.swift */; };
+		AA1A1111111111111111112A /* AppShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000001B /* AppShellView.swift */; };
+		AA1A1111111111111111112B /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000001C /* SidebarView.swift */; };
+		AA1A1111111111111111112C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000001D /* HomeView.swift */; };
+		AA1A1111111111111111112D /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000001E /* SearchView.swift */; };
+		AA1A1111111111111111112E /* RecordingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A0000000000000000001F /* RecordingsView.swift */; };
+		AA1A1111111111111111112F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000020 /* SettingsView.swift */; };
+		AA1A11111111111111111130 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000021 /* CategoriesView.swift */; };
+		AA1A11111111111111111131 /* SeriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000022 /* SeriesListView.swift */; };
+		AA1A11111111111111111132 /* SeriesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000023 /* SeriesCardView.swift */; };
+		AA1A11111111111111111133 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000024 /* FavoritesView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA1A00000000000000000000 /* XtreamTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = XtreamTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA1A00000000000000000001 /* XtreamTVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XtreamTVApp.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000002 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000003 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000004 /* StreamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamListView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000005 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000006 /* CategoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCardView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000007 /* StreamCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamCardView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000008 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000009 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000000A /* StreamListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamListViewModel.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000000B /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000000C /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000000D /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000000E /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000000F /* XtreamAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XtreamAPIClient.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000010 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA1A00000000000000000011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA1A00000000000000000012 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000013 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000014 /* PlaylistFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFormView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000015 /* PlaylistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistsView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000016 /* PlaylistCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCardView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000017 /* Series.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Series.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000018 /* FavoriteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteItem.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000019 /* MediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaType.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000001A /* SeriesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesListViewModel.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000001B /* AppShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShellView.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000001C /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000001D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000001E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		AA1A0000000000000000001F /* RecordingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000020 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000021 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000022 /* SeriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesListView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000023 /* SeriesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesCardView.swift; sourceTree = "<group>"; };
+		AA1A00000000000000000024 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		AA1A20000000000000000000 = {
+			isa = PBXGroup;
+			children = (
+				AA1A20000000000000000010 /* XtreamTV */,
+				AA1A00000000000000000000 /* XtreamTV.app */,
+			);
+			sourceTree = "<group>";
+		};
+		AA1A20000000000000000010 /* XtreamTV */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A20000000000000000011 /* App */,
+				AA1A20000000000000000012 /* Models */,
+				AA1A20000000000000000013 /* Services */,
+				AA1A20000000000000000014 /* ViewModels */,
+				AA1A20000000000000000015 /* Views */,
+				AA1A00000000000000000010 /* Assets.xcassets */,
+				AA1A00000000000000000011 /* Info.plist */,
+			);
+			path = XtreamTV;
+			sourceTree = "<group>";
+		};
+		AA1A20000000000000000011 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A00000000000000000001 /* XtreamTVApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AA1A20000000000000000012 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A0000000000000000000C /* Category.swift */,
+				AA1A0000000000000000000D /* Stream.swift */,
+				AA1A0000000000000000000E /* AuthResponse.swift */,
+				AA1A00000000000000000012 /* Playlist.swift */,
+				AA1A00000000000000000018 /* FavoriteItem.swift */,
+				AA1A00000000000000000017 /* Series.swift */,
+				AA1A00000000000000000019 /* MediaType.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AA1A20000000000000000013 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A0000000000000000000F /* XtreamAPIClient.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AA1A20000000000000000014 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A00000000000000000008 /* AuthViewModel.swift */,
+				AA1A00000000000000000009 /* DashboardViewModel.swift */,
+				AA1A0000000000000000000A /* StreamListViewModel.swift */,
+				AA1A0000000000000000000B /* PlayerViewModel.swift */,
+				AA1A0000000000000000001A /* SeriesListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AA1A20000000000000000015 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A00000000000000000002 /* LoginView.swift */,
+				AA1A00000000000000000003 /* DashboardView.swift */,
+				AA1A00000000000000000004 /* StreamListView.swift */,
+				AA1A00000000000000000005 /* PlayerView.swift */,
+				AA1A00000000000000000013 /* OnboardingView.swift */,
+				AA1A00000000000000000014 /* PlaylistFormView.swift */,
+				AA1A00000000000000000015 /* PlaylistsView.swift */,
+				AA1A0000000000000000001B /* AppShellView.swift */,
+				AA1A0000000000000000001C /* SidebarView.swift */,
+				AA1A0000000000000000001D /* HomeView.swift */,
+				AA1A0000000000000000001E /* SearchView.swift */,
+				AA1A00000000000000000024 /* FavoritesView.swift */,
+				AA1A0000000000000000001F /* RecordingsView.swift */,
+				AA1A00000000000000000020 /* SettingsView.swift */,
+				AA1A00000000000000000021 /* CategoriesView.swift */,
+				AA1A00000000000000000022 /* SeriesListView.swift */,
+				AA1A20000000000000000016 /* Reusable */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AA1A20000000000000000016 /* Reusable */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A00000000000000000006 /* CategoryCardView.swift */,
+				AA1A00000000000000000007 /* StreamCardView.swift */,
+				AA1A00000000000000000016 /* PlaylistCardView.swift */,
+				AA1A00000000000000000023 /* SeriesCardView.swift */,
+			);
+			path = Reusable;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA1A30000000000000000000 /* XtreamTV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA1A50000000000000000000 /* Build configuration list for PBXNativeTarget "XtreamTV" */;
+			buildPhases = (
+				AA1A40000000000000000000 /* Sources */,
+				AA1A40000000000000000001 /* Frameworks */,
+				AA1A40000000000000000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XtreamTV;
+			productName = XtreamTV;
+			productReference = AA1A00000000000000000000 /* XtreamTV.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA1A60000000000000000000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					AA1A30000000000000000000 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = AA1A50000000000000000001 /* Build configuration list for PBXProject "XtreamTV" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA1A20000000000000000000;
+			productRefGroup = AA1A20000000000000000000;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA1A30000000000000000000 /* XtreamTV */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA1A40000000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA1A11111111111111111120 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA1A40000000000000000000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA1A11111111111111111111 /* XtreamTVApp.swift in Sources */,
+				AA1A11111111111111111112 /* LoginView.swift in Sources */,
+				AA1A11111111111111111113 /* DashboardView.swift in Sources */,
+				AA1A11111111111111111114 /* StreamListView.swift in Sources */,
+				AA1A11111111111111111115 /* PlayerView.swift in Sources */,
+				AA1A11111111111111111116 /* CategoryCardView.swift in Sources */,
+				AA1A11111111111111111117 /* StreamCardView.swift in Sources */,
+				AA1A11111111111111111118 /* AuthViewModel.swift in Sources */,
+				AA1A11111111111111111119 /* DashboardViewModel.swift in Sources */,
+				AA1A1111111111111111111A /* StreamListViewModel.swift in Sources */,
+				AA1A1111111111111111111B /* PlayerViewModel.swift in Sources */,
+				AA1A1111111111111111111C /* Category.swift in Sources */,
+				AA1A1111111111111111111D /* Stream.swift in Sources */,
+				AA1A1111111111111111111E /* AuthResponse.swift in Sources */,
+				AA1A1111111111111111111F /* XtreamAPIClient.swift in Sources */,
+				AA1A11111111111111111121 /* Playlist.swift in Sources */,
+				AA1A11111111111111111122 /* OnboardingView.swift in Sources */,
+				AA1A11111111111111111123 /* PlaylistFormView.swift in Sources */,
+				AA1A11111111111111111124 /* PlaylistsView.swift in Sources */,
+				AA1A11111111111111111125 /* PlaylistCardView.swift in Sources */,
+				AA1A11111111111111111126 /* Series.swift in Sources */,
+				AA1A11111111111111111127 /* FavoriteItem.swift in Sources */,
+				AA1A11111111111111111128 /* MediaType.swift in Sources */,
+				AA1A11111111111111111129 /* SeriesListViewModel.swift in Sources */,
+				AA1A1111111111111111112A /* AppShellView.swift in Sources */,
+				AA1A1111111111111111112B /* SidebarView.swift in Sources */,
+				AA1A1111111111111111112C /* HomeView.swift in Sources */,
+				AA1A1111111111111111112D /* SearchView.swift in Sources */,
+				AA1A11111111111111111133 /* FavoritesView.swift in Sources */,
+				AA1A1111111111111111112E /* RecordingsView.swift in Sources */,
+				AA1A1111111111111111112F /* SettingsView.swift in Sources */,
+				AA1A11111111111111111130 /* CategoriesView.swift in Sources */,
+				AA1A11111111111111111131 /* SeriesListView.swift in Sources */,
+				AA1A11111111111111111132 /* SeriesCardView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA1A40000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA1A70000000000000000000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = XtreamTV/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.XtreamTV;
+				PRODUCT_NAME = XtreamTV;
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+			};
+			name = Debug;
+		};
+		AA1A70000000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = XtreamTV/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.XtreamTV;
+				PRODUCT_NAME = XtreamTV;
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+			};
+			name = Release;
+		};
+		AA1A70000000000000000002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				MARKETING_VERSION = 1.0;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AA1A70000000000000000003 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				MARKETING_VERSION = 1.0;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA1A50000000000000000000 /* Build configuration list for PBXNativeTarget "XtreamTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA1A70000000000000000000 /* Debug */,
+				AA1A70000000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AA1A50000000000000000001 /* Build configuration list for PBXProject "XtreamTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA1A70000000000000000002 /* Debug */,
+				AA1A70000000000000000003 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA1A60000000000000000000 /* Project object */;
+}
