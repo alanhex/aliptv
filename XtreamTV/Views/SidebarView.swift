@@ -2,58 +2,57 @@ import SwiftUI
 
 struct SidebarView: View {
     let playlists: [Playlist]
+    var compact: Bool = false
+    var onRequestExpand: (() -> Void)? = nil
     @Binding var selectedDestination: SidebarDestination
     @Binding var expandedPlaylists: Set<UUID>
 
+    @FocusState private var focusedCompactDestination: SidebarDestination?
+    @FocusState private var focusedRow: SidebarFocusTarget?
+
+    private enum SidebarFocusTarget: Hashable {
+        case destination(SidebarDestination)
+        case playlistHeader(UUID)
+    }
+
+    private struct SidebarNoScaleButtonStyle: ButtonStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+                .scaleEffect(1.0)
+                .opacity(configuration.isPressed ? 0.94 : 1.0)
+        }
+    }
+
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                section(title: String(localized: "sidebar.section.navigation", defaultValue: "Navigation")) {
-                    navButton(
-                        label: String(localized: "sidebar.home", defaultValue: "Home"),
-                        icon: "house",
-                        destination: .home
-                    )
-                    navButton(
-                        label: String(localized: "sidebar.search", defaultValue: "Search"),
-                        icon: "magnifyingglass",
-                        destination: .search
-                    )
-                    navButton(
-                        label: String(localized: "sidebar.favorites", defaultValue: "Favorites"),
-                        icon: "star",
-                        destination: .favorites
-                    )
+            VStack(alignment: .leading, spacing: compact ? 10 : 14) {
+                section {
+                    navButton(label: String(localized: "sidebar.home", defaultValue: "Home"), icon: "house", destination: .home)
+                    navButton(label: String(localized: "sidebar.search", defaultValue: "Search"), icon: "magnifyingglass", destination: .search)
+                    navButton(label: String(localized: "sidebar.favorites", defaultValue: "Favorites"), icon: "star", destination: .favorites)
                 }
 
-                section(title: String(localized: "sidebar.section.playlists", defaultValue: "Playlists")) {
-                    ForEach(playlists, id: \.id) { playlist in
-                        playlistGroup(playlist)
+                if !compact {
+                    section {
+                        ForEach(playlists, id: \.id) { playlist in
+                            playlistGroup(playlist)
+                        }
                     }
                 }
 
-                section(title: String(localized: "sidebar.section.system", defaultValue: "System")) {
-                    navButton(
-                        label: String(localized: "sidebar.recordings", defaultValue: "Recordings"),
-                        icon: "record.circle",
-                        destination: .recordings
-                    )
-                    navButton(
-                        label: String(localized: "sidebar.settings", defaultValue: "Settings"),
-                        icon: "gearshape",
-                        destination: .settings
-                    )
-                    navButton(
-                        label: String(localized: "sidebar.add_playlist", defaultValue: "Add Playlist"),
-                        icon: "plus.circle",
-                        destination: .addPlaylist
-                    )
+                section {
+                    navButton(label: String(localized: "sidebar.recordings", defaultValue: "Recordings"), icon: "record.circle", destination: .recordings)
+                    navButton(label: String(localized: "sidebar.settings", defaultValue: "Settings"), icon: "gearshape", destination: .settings)
+                    navButton(label: String(localized: "sidebar.add_playlist", defaultValue: "Add Playlist"), icon: "plus.circle", destination: .addPlaylist)
                 }
             }
-            .padding(.vertical, 12)
-            .padding(.horizontal, 10)
+            .padding(.leading, compact ? 6 : 8)
+            .padding(.trailing, compact ? 8 : 12)
+            .padding(.vertical, compact ? 10 : 14)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .scrollIndicators(.hidden)
+        .clipped()
         .focusSection()
         .onAppear {
             syncExpandedForSelection()
@@ -61,111 +60,166 @@ struct SidebarView: View {
         .onChange(of: selectedDestination) { _, _ in
             syncExpandedForSelection()
         }
+        .onChange(of: focusedCompactDestination) { _, newValue in
+            guard compact, newValue != nil else { return }
+            onRequestExpand?()
+        }
     }
 
-    private func section<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title)
-                .font(.caption2.weight(.medium))
-                .foregroundStyle(.secondary)
-                .padding(.leading, 8)
+    private func section<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: compact ? 8 : 10) {
             content()
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private func navButton(label: String, icon: String, destination: SidebarDestination) -> some View {
+        let isFocused = focusedRow == .destination(destination)
+        let isSelected = selectedDestination == destination
+
         return Button {
             selectedDestination = destination
         } label: {
-            HStack(spacing: 10) {
-                Image(systemName: icon)
-                    .frame(width: 20)
-                Text(label)
-                    .lineLimit(1)
-                Spacer(minLength: 0)
+            if compact {
+                compactIcon(icon: icon, isFocused: isFocused, isSelected: isSelected)
+            } else {
+                rowContent(label: label, icon: icon, isFocused: isFocused, isSelected: isSelected)
             }
-                .padding(.horizontal, 10)
-                .padding(.vertical, 8)
-                .background(background(isSelected: isSelected(destination)))
-                .overlay {
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .stroke(Color.white.opacity(0.08), lineWidth: 1)
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                .contentShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(SidebarNoScaleButtonStyle())
         .focusEffectDisabled()
+        .focused($focusedCompactDestination, equals: destination)
+        .focused($focusedRow, equals: .destination(destination))
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private func playlistGroup(_ playlist: Playlist) -> some View {
-        return VStack(alignment: .leading, spacing: 6) {
+        let isFocused = focusedRow == .playlistHeader(playlist.id)
+        let isSelected = isPlaylistSelected(playlist.id)
+
+        return VStack(alignment: .leading, spacing: 8) {
             Button {
                 togglePlaylist(playlist.id)
             } label: {
-                HStack {
-                    Image(systemName: expandedPlaylists.contains(playlist.id) ? "chevron.down" : "chevron.right")
-                        .font(.caption.bold())
+                HStack(spacing: 10) {
+                    Image(systemName: "circle.fill")
+                        .font(.caption2)
+                        .foregroundStyle(Color.pink)
                     Text(playlist.name)
+                        .font(.headline.weight(.semibold))
                         .lineLimit(1)
                     Spacer(minLength: 0)
+                    Image(systemName: expandedPlaylists.contains(playlist.id) ? "chevron.down" : "chevron.right")
+                        .font(.caption.weight(.semibold))
                 }
-                .padding(.horizontal, 10)
-                .padding(.vertical, 8)
-                .background(Color.white.opacity(0.05))
+                .padding(.horizontal, 14)
+                .frame(height: 46)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(rowForeground(isFocused: isFocused))
+                .background(rowBackground(isFocused: isFocused, isSelected: isSelected))
                 .overlay {
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                    rowBorder(isFocused: isFocused)
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                .contentShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             }
-            .buttonStyle(.plain)
+            .buttonStyle(SidebarNoScaleButtonStyle())
             .focusEffectDisabled()
+            .focused($focusedRow, equals: .playlistHeader(playlist.id))
 
             if expandedPlaylists.contains(playlist.id) {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 8) {
                     mediaRow(playlist: playlist, mediaType: .live)
-                    mediaRow(playlist: playlist, mediaType: .movie)
                     mediaRow(playlist: playlist, mediaType: .series)
+                    mediaRow(playlist: playlist, mediaType: .movie)
                 }
-                .padding(.leading, 18)
+                .padding(.leading, 12)
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private func mediaRow(playlist: Playlist, mediaType: MediaType) -> some View {
         let destination = SidebarDestination.playlistMedia(playlistID: playlist.id, mediaType: mediaType)
+        let isFocused = focusedRow == .destination(destination)
+        let isSelected = selectedDestination == destination
 
         return Button {
             selectedDestination = destination
         } label: {
-            HStack(spacing: 10) {
-                Image(systemName: symbol(for: mediaType))
-                    .frame(width: 20)
-                Text(mediaType.displayName)
-                    .lineLimit(1)
-                Spacer(minLength: 0)
-            }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 7)
-            .background(background(isSelected: isSelected(destination)))
+            rowContent(label: mediaType.displayName, icon: symbol(for: mediaType), isFocused: isFocused, isSelected: isSelected)
+                .frame(height: 42)
+        }
+        .buttonStyle(SidebarNoScaleButtonStyle())
+        .focusEffectDisabled()
+        .focused($focusedRow, equals: .destination(destination))
+    }
+
+    private func compactIcon(icon: String, isFocused: Bool, isSelected: Bool) -> some View {
+        Image(systemName: icon)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(isFocused ? Color.black.opacity(0.78) : Color.white.opacity(0.9))
+            .frame(width: 34, height: 34)
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(isFocused ? Color.white.opacity(0.88) : (isSelected ? Color.white.opacity(0.18) : Color.white.opacity(0.08)))
+            )
             .overlay {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                    .stroke(Color.white.opacity(isFocused ? 0.2 : 0.08), lineWidth: isFocused ? 0.7 : 0.5)
             }
-            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             .contentShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+    }
+
+    private func rowContent(label: String, icon: String, isFocused: Bool, isSelected: Bool) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.subheadline.weight(.semibold))
+                .frame(width: 18)
+            Text(label)
+                .font(.headline.weight(.semibold))
+                .lineLimit(1)
+            Spacer(minLength: 0)
         }
-        .buttonStyle(.plain)
-        .focusEffectDisabled()
+        .padding(.horizontal, 14)
+        .frame(height: 44)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .foregroundStyle(rowForeground(isFocused: isFocused))
+        .background(rowBackground(isFocused: isFocused, isSelected: isSelected))
+        .overlay {
+            rowBorder(isFocused: isFocused)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+    }
+
+    private func rowForeground(isFocused: Bool) -> Color {
+        isFocused ? Color.black.opacity(0.78) : Color.white.opacity(0.9)
+    }
+
+    private func rowBackground(isFocused: Bool, isSelected: Bool) -> Color {
+        if isFocused {
+            return Color.white.opacity(0.78)
+        }
+        return isSelected ? Color.white.opacity(0.14) : Color.white.opacity(0.08)
+    }
+
+    @ViewBuilder
+    private func rowBorder(isFocused: Bool) -> some View {
+        RoundedRectangle(cornerRadius: 12, style: .continuous)
+            .stroke(Color.white.opacity(isFocused ? 0.14 : 0.08), lineWidth: isFocused ? 0.6 : 0.5)
+    }
+
+    private func isPlaylistSelected(_ playlistID: UUID) -> Bool {
+        guard case let .playlistMedia(currentID, _) = selectedDestination else { return false }
+        return currentID == playlistID
     }
 
     private func symbol(for mediaType: MediaType) -> String {
         switch mediaType {
         case .live: return "dot.radiowaves.left.and.right"
         case .movie: return "film"
-        case .series: return "sparkles.tv"
+        case .series: return "tv"
         }
     }
 
@@ -177,19 +231,8 @@ struct SidebarView: View {
         }
     }
 
-    private func isSelected(_ destination: SidebarDestination) -> Bool {
-        selectedDestination == destination
-    }
-
     private func syncExpandedForSelection() {
         guard case let .playlistMedia(playlistID, _) = selectedDestination else { return }
         expandedPlaylists.insert(playlistID)
-    }
-
-    private func background(isSelected: Bool) -> Color {
-        if isSelected {
-            return Color.accentColor.opacity(0.22)
-        }
-        return Color.white.opacity(0.02)
     }
 }

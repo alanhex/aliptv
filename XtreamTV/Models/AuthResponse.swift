@@ -128,6 +128,10 @@ struct XtreamStreamDTO: Decodable, Hashable {
     let streamIcon: String?
     let containerExtension: String?
     let directSource: String?
+    let synopsis: String?
+    let genre: String?
+    let releaseYear: String?
+    let rating: String?
 
     private enum CodingKeys: String, CodingKey {
         case streamID = "stream_id"
@@ -137,6 +141,10 @@ struct XtreamStreamDTO: Decodable, Hashable {
         case streamIcon = "stream_icon"
         case containerExtension = "container_extension"
         case directSource = "direct_source"
+        case synopsis = "plot"
+        case genre
+        case releaseYear = "year"
+        case rating
     }
 
     init(from decoder: Decoder) throws {
@@ -152,6 +160,10 @@ struct XtreamStreamDTO: Decodable, Hashable {
         streamIcon = container.decodeFlexibleString(forKey: .streamIcon)
         containerExtension = container.decodeFlexibleString(forKey: .containerExtension)
         directSource = container.decodeFlexibleString(forKey: .directSource)
+        synopsis = container.decodeFlexibleString(forKey: .synopsis)
+        genre = container.decodeFlexibleString(forKey: .genre)
+        releaseYear = container.decodeFlexibleString(forKey: .releaseYear)
+        rating = container.decodeFlexibleString(forKey: .rating)
     }
 }
 

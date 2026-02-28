@@ -8,15 +8,22 @@ struct AppShellView: View {
     @StateObject private var dashboardViewModel = DashboardViewModel()
     @StateObject private var playerViewModel = PlayerViewModel()
     @State private var selectedPlayable: PlayableItem?
+    @State private var compactSidebarForMovies = false
 
     var body: some View {
         HStack(spacing: 0) {
             SidebarView(
                 playlists: playlists,
+                compact: isMovieDestination && compactSidebarForMovies,
+                onRequestExpand: {
+                    if compactSidebarForMovies {
+                        compactSidebarForMovies = false
+                    }
+                },
                 selectedDestination: $dashboardViewModel.selectedDestination,
                 expandedPlaylists: $dashboardViewModel.expandedPlaylists
             )
-            .frame(width: 400)
+            .frame(width: sidebarWidth)
             .frame(maxHeight: .infinity)
             .background(Color.white.opacity(0.04))
             .overlay(alignment: .trailing) {
@@ -27,7 +34,8 @@ struct AppShellView: View {
 
             detailContent
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.horizontal, 28)
+                .padding(.leading, isMovieDestination && compactSidebarForMovies ? 8 : 28)
+                .padding(.trailing, 28)
                 .padding(.vertical, 22)
         }
         .background(
@@ -46,6 +54,13 @@ struct AppShellView: View {
         }
         .onChange(of: playlists) { _, newValue in
             dashboardViewModel.ensureValidSelection(playlists: newValue)
+        }
+        .onChange(of: dashboardViewModel.selectedDestination) { _, newValue in
+            if case let .playlistMedia(_, mediaType) = newValue, mediaType == .movie {
+                compactSidebarForMovies = true
+            } else {
+                compactSidebarForMovies = false
+            }
         }
     }
 
@@ -69,12 +84,31 @@ struct AppShellView: View {
                 if mediaType == .series {
                     SeriesListView(playlist: playlist, onPlay: { selectedPlayable = $0 })
                 } else {
-                    StreamListView(playlist: playlist, mediaType: mediaType, onPlay: { selectedPlayable = $0 })
+                    StreamListView(
+                        playlist: playlist,
+                        mediaType: mediaType,
+                        onPlay: { selectedPlayable = $0 },
+                        onMovieFocusChange: { compactSidebarForMovies = $0 }
+                    )
                 }
             } else {
                 ContentUnavailableView("Playlist not found", systemImage: "exclamationmark.triangle")
             }
         }
+    }
+
+    private var isMovieDestination: Bool {
+        if case let .playlistMedia(_, mediaType) = dashboardViewModel.selectedDestination {
+            return mediaType == .movie
+        }
+        return false
+    }
+
+    private var sidebarWidth: CGFloat {
+        if isMovieDestination {
+            return compactSidebarForMovies ? 68 : 340
+        }
+        return 400
     }
 
     private func openSeries(playlistID: UUID, seriesID: String) {

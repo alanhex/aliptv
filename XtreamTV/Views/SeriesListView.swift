@@ -72,7 +72,7 @@ struct SeriesListView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 ScrollView(.vertical, showsIndicators: true) {
-                    LazyVStack(spacing: 8) {
+                    LazyVStack(spacing: 6) {
                         ForEach(viewModel.categories, id: \.cacheKey) { category in
                             Button {
                                 focusedCategoryKey = category.cacheKey
@@ -84,6 +84,7 @@ struct SeriesListView: View {
                                 )
                             }
                             .buttonStyle(.plain)
+                            .focusEffectDisabled()
                             .focused($focusedCategoryKey, equals: category.cacheKey)
                         }
                     }
@@ -122,6 +123,7 @@ struct SeriesListView: View {
                     SeriesCardView(
                         title: series.title,
                         subtitle: series.synopsis,
+                        posterURL: series.coverURL,
                         isSelected: viewModel.selectedSeries?.cacheKey == series.cacheKey,
                         onSelect: {
                             Task { await viewModel.selectSeries(series) }
@@ -188,6 +190,8 @@ struct SeriesListView: View {
                     StreamCardView(
                         title: episode.title,
                         subtitle: "S\(episode.seasonNumber) E\(episode.episodeNumber)",
+                        details: episode.overview,
+                        posterURL: nil,
                         isFavorite: viewModel.isFavorite(episode),
                         onPlay: { onPlay(episode.asPlayable) },
                         onToggleFavorite: { viewModel.toggleFavorite(episode) }

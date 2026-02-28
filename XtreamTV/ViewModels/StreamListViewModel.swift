@@ -71,6 +71,7 @@ final class StreamListViewModel: ObservableObject {
     func selectCategory(_ newCategoryID: String?) {
         let isSameSelection = selectedCategoryID == newCategoryID
         selectedCategoryID = newCategoryID
+        errorMessage = nil
         loadStreamsForSelectedCategory()
         guard let normalizedCategoryID = newCategoryID, !normalizedCategoryID.isEmpty else { return }
         if isSameSelection && !streams.isEmpty { return }
@@ -96,6 +97,8 @@ final class StreamListViewModel: ObservableObject {
                 guard !Task.isCancelled else { return }
                 self.loadFromCache()
             } catch {
+                // Allow retry on transient provider/network failures for this category.
+                self.autoRefreshedEmptyCategoryIDs.remove(categoryID)
                 self.errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
             }
         }

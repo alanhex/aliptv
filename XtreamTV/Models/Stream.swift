@@ -11,6 +11,10 @@ final class Stream {
     var title: String
     var streamURL: String
     var logoURL: String?
+    var synopsis: String?
+    var genre: String?
+    var releaseYear: String?
+    var rating: String?
     var updatedAt: Date
 
     init(
@@ -21,6 +25,10 @@ final class Stream {
         title: String,
         streamURL: String,
         logoURL: String? = nil,
+        synopsis: String? = nil,
+        genre: String? = nil,
+        releaseYear: String? = nil,
+        rating: String? = nil,
         updatedAt: Date = .now
     ) {
         self.playlistID = playlistID
@@ -30,6 +38,10 @@ final class Stream {
         self.title = title
         self.streamURL = streamURL
         self.logoURL = logoURL
+        self.synopsis = synopsis
+        self.genre = genre
+        self.releaseYear = releaseYear
+        self.rating = rating
         self.updatedAt = updatedAt
         self.cacheKey = "\(playlistID.uuidString)|\(mediaType.rawValue)|\(categoryID)|\(streamID)"
     }

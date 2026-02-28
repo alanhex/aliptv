@@ -304,7 +304,11 @@ func buildXtreamPlaybackURL(
 ) -> String {
     let fallbackScheme = URL(string: credentials.normalizedBaseURL)?.scheme
 
-    if let directSource, !directSource.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+    // Many providers return volatile direct_source links for VOD/series that expire quickly.
+    // Prefer stable credentialed Xtream endpoints for non-live playback.
+    if mediaType == .live,
+       let directSource,
+       !directSource.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
         return normalizedPlaybackURLString(directSource, fallbackScheme: fallbackScheme)
     }
 
@@ -945,7 +949,11 @@ final class IPTVRepository: ObservableObject {
                     categoryID: categoryID,
                     title: stream.name,
                     streamURL: url,
-                    logoURL: stream.streamIcon
+                    logoURL: stream.streamIcon,
+                    synopsis: stream.synopsis,
+                    genre: stream.genre,
+                    releaseYear: stream.releaseYear,
+                    rating: stream.rating
                 )
                 modelContext.insert(item)
             }
