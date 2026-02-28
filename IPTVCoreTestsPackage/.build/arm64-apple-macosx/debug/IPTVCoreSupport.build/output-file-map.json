@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/master.swiftdeps"
+  },
+  "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Sources/IPTVCoreSupport/PlaylistScopedCache.swift": {
+    "dependencies": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/PlaylistScopedCache.d",
+    "object": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/PlaylistScopedCache.swift.o",
+    "swiftmodule": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/PlaylistScopedCache~partial.swiftmodule",
+    "swift-dependencies": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/PlaylistScopedCache.swiftdeps",
+    "diagnostics": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/PlaylistScopedCache.dia"
+  },
+  "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Sources/IPTVCoreSupport/XtreamEpisodeParser.swift": {
+    "dependencies": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/XtreamEpisodeParser.d",
+    "object": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/XtreamEpisodeParser.swift.o",
+    "swiftmodule": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/XtreamEpisodeParser~partial.swiftmodule",
+    "swift-dependencies": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/XtreamEpisodeParser.swiftdeps",
+    "diagnostics": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/XtreamEpisodeParser.dia"
+  }
+}

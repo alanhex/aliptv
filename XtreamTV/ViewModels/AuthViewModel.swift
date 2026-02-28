@@ -1,54 +1,62 @@
 import Foundation
-import SwiftUI
 
 @MainActor
 final class AuthViewModel: ObservableObject {
-    @Published var baseURLString: String = ""
-    @Published var username: String = ""
-    @Published var password: String = ""
+    @Published var isSaving = false
+    @Published var isReloadingPlaylistID: UUID?
+    @Published var validationError: String?
+    @Published var validationStep: PlaylistValidationStep?
 
-    @Published private(set) var isAuthenticated: Bool = false
-    @Published private(set) var isLoading: Bool = false
-    @Published var errorMessage: String?
+    private let repository: IPTVRepository
 
-    private(set) var authResponse: AuthResponse?
-
-    // Construit un client API à partir des champs saisis
-    var client: XtreamAPIClient? {
-        guard let url = URL(string: baseURLString) else { return nil }
-        return XtreamAPIClient(baseURL: url, username: username, password: password)
+    init(repository: IPTVRepository) {
+        self.repository = repository
     }
 
-    // Tente l'authentification Xtream Codes
-    func login() async {
-        errorMessage = nil
-        isLoading = true
-        defer { isLoading = false }
-
-        guard let client else {
-            errorMessage = "URL invalide. Exemple: https://monserveur.com"
-            return
+    func savePlaylist(draft: PlaylistDraft, editing playlist: Playlist?) async -> Bool {
+        isSaving = true
+        validationError = nil
+        defer {
+            isSaving = false
+            validationStep = nil
         }
 
         do {
-            let response = try await client.authenticate()
-            authResponse = response
-            isAuthenticated = response.userInfo.status.lowercased() == "active"
-            if !isAuthenticated {
-                errorMessage = "Compte inactif ou expiré."
-            }
+            _ = try await repository.savePlaylist(draft, editing: playlist)
+            return true
         } catch {
-            errorMessage = "Échec de la connexion : \(error.localizedDescription)"
+            validationError = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+            validationStep = repository.currentValidationStep
+            return false
         }
     }
 
-    // Réinitialise l'état de session
-    func logout() {
-        isAuthenticated = false
-        authResponse = nil
-        baseURLString = ""
-        username = ""
-        password = ""
-        errorMessage = nil
+    func reload(_ playlist: Playlist) async -> Bool {
+        isReloadingPlaylistID = playlist.id
+        validationError = nil
+
+        defer {
+            isReloadingPlaylistID = nil
+            validationStep = nil
+        }
+
+        do {
+            try await repository.reloadPlaylist(playlist)
+            return true
+        } catch {
+            validationError = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+            validationStep = repository.currentValidationStep
+            return false
+        }
+    }
+
+    func delete(_ playlist: Playlist) -> Bool {
+        do {
+            try repository.deletePlaylist(playlist)
+            return true
+        } catch {
+            validationError = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+            return false
+        }
     }
 }

@@ -1,35 +1,35 @@
 import SwiftUI
 
 struct StreamCardView: View {
-    let stream: Stream
+    let title: String
+    let subtitle: String
+    let isFavorite: Bool
+    let onPlay: () -> Void
+    let onToggleFavorite: () -> Void
 
     var body: some View {
-        VStack(spacing: 12) {
-            if let icon = stream.streamIcon, let url = URL(string: icon) {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    Color.gray.opacity(0.2)
-                }
-                .frame(height: 80)
-            } else {
-                Image(systemName: "tv")
-                    .font(.system(size: 36, weight: .bold))
-                    .foregroundStyle(.blue)
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.headline)
+                    .lineLimit(1)
+                Text(subtitle)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
             }
 
-            Text(stream.name)
-                .font(.headline)
-                .multilineTextAlignment(.center)
-                .lineLimit(2)
+            Spacer()
+
+            Button("Play", action: onPlay)
+                .buttonStyle(.borderedProminent)
+
+            Button(action: onToggleFavorite) {
+                Image(systemName: isFavorite ? "star.fill" : "star")
+                    .foregroundStyle(isFavorite ? .yellow : .primary)
+            }
+            .buttonStyle(.bordered)
         }
-        .padding(16)
-        .frame(height: 180)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.blue.opacity(0.15))
-        )
+        .padding(.vertical, 6)
     }
 }

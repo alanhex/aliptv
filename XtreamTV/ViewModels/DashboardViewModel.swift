@@ -1,53 +1,36 @@
 import Foundation
 
+enum SidebarDestination: Hashable {
+    case home
+    case search
+    case favorites
+    case recordings
+    case settings
+    case addPlaylist
+    case playlistMedia(playlistID: UUID, mediaType: MediaType)
+}
+
 @MainActor
 final class DashboardViewModel: ObservableObject {
-    @Published private(set) var categories: [Category] = []
-    @Published private(set) var isLoading: Bool = false
-    @Published var errorMessage: String?
+    @Published var selectedDestination: SidebarDestination = .home
+    @Published var expandedPlaylists: Set<UUID> = []
 
-    private let client: XtreamAPIClient
-
-    init(client: XtreamAPIClient) {
-        self.client = client
-    }
-
-    // Charge les catégories Live TV depuis l'API
-    func loadCategories() async {
-        errorMessage = nil
-        isLoading = true
-        defer { isLoading = false }
-
-        do {
-            categories = try await client.fetchLiveCategories()
-        } catch {
-            errorMessage = "Impossible de charger les catégories : \(error.localizedDescription)"
+    func toggleExpanded(for playlistID: UUID) {
+        if expandedPlaylists.contains(playlistID) {
+            expandedPlaylists.remove(playlistID)
+        } else {
+            expandedPlaylists.insert(playlistID)
         }
     }
 
-    // Charge les catégories VOD (Films)
-    func loadCategoriesVod() async {
-        errorMessage = nil
-        isLoading = true
-        defer { isLoading = false }
-
-        do {
-            categories = try await client.fetchVodCategories()
-        } catch {
-            errorMessage = "Impossible de charger les catégories VOD : \(error.localizedDescription)"
-        }
+    func isExpanded(playlistID: UUID) -> Bool {
+        expandedPlaylists.contains(playlistID)
     }
 
-    // Charge les catégories Séries
-    func loadCategoriesSeries() async {
-        errorMessage = nil
-        isLoading = true
-        defer { isLoading = false }
-
-        do {
-            categories = try await client.fetchSeriesCategories()
-        } catch {
-            errorMessage = "Impossible de charger les catégories Séries : \(error.localizedDescription)"
+    func ensureValidSelection(playlists: [Playlist]) {
+        guard case let .playlistMedia(playlistID, _) = selectedDestination else { return }
+        if playlists.contains(where: { $0.id == playlistID }) == false {
+            selectedDestination = .home
         }
     }
 }

@@ -1,107 +1,95 @@
 import SwiftUI
-import SwiftData
 
 struct FavoritesView: View {
-    @Query private var favorites: [FavoriteItem]
-    let playlists: [Playlist]
+    @EnvironmentObject private var repository: IPTVRepository
 
-    init(playlists: [Playlist]) {
-        self.playlists = playlists
-        _favorites = Query(sort: \FavoriteItem.createdAt, order: .reverse)
-    }
+    let onPlay: (PlayableItem) -> Void
+
+    @State private var favorites: [FavoriteItem] = []
+    @State private var errorMessage: String?
+    @State private var favoriteToDelete: FavoriteItem?
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                Text("Favoris")
-                    .font(.largeTitle)
-                    .bold()
+        VStack(alignment: .leading, spacing: 20) {
+            Text("Favorites")
+                .font(.largeTitle.bold())
 
-                if favorites.isEmpty {
-                    Text("Aucun favori pour le moment.")
-                        .foregroundStyle(.secondary)
-                } else {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 260), spacing: 20)], spacing: 20) {
-                        ForEach(favorites) { item in
-                            if let playlist = playlist(for: item.playlistId),
-                               let client = makeClient(for: playlist),
-                               let url = makeURL(for: item, client: client) {
-                                NavigationLink {
-                                    let stream = Stream(
-                                        id: item.streamId,
-                                        name: item.name,
-                                        streamIcon: nil,
-                                        streamType: item.type,
-                                        categoryId: nil,
-                                        containerExtension: nil
-                                    )
-                                    PlayerView(stream: stream, streamURL: url)
-                                } label: {
-                                    FavoriteCardView(item: item, playlistName: playlist.name)
-                                }
-                                .buttonStyle(.card)
-                            } else {
-                                FavoriteCardView(item: item, playlistName: playlistName(for: item.playlistId))
-                                    .opacity(0.6)
-                            }
-                        }
-                    }
-                    .focusSection()
-                }
+            if let errorMessage {
+                Text(errorMessage)
+                    .foregroundStyle(.red)
             }
-            .padding(60)
+
+            if favorites.isEmpty {
+                ContentUnavailableView("No favorites", systemImage: "star")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                List(favorites) { favorite in
+                    HStack(spacing: 14) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(favorite.title)
+                                .font(.headline)
+                                .lineLimit(1)
+                            Text(favorite.mediaType.displayName)
+                                .foregroundStyle(.secondary)
+                                .lineLimit(1)
+                        }
+
+                        Spacer()
+
+                        Button("Play") {
+                            onPlay(favorite.asPlayable)
+                        }
+                        .buttonStyle(.borderedProminent)
+
+                        Button(role: .destructive) {
+                            favoriteToDelete = favorite
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                        .buttonStyle(.bordered)
+                    }
+                    .padding(.vertical, 6)
+                }
+                .listStyle(.plain)
+            }
+        }
+        .onAppear(perform: loadFavorites)
+        .alert("Delete favorite?", isPresented: Binding(get: {
+            favoriteToDelete != nil
+        }, set: { value in
+            if !value {
+                favoriteToDelete = nil
+            }
+        })) {
+            Button("Delete", role: .destructive) {
+                if let favoriteToDelete {
+                    removeFavorite(favoriteToDelete)
+                }
+                favoriteToDelete = nil
+            }
+            Button("Cancel", role: .cancel) {
+                favoriteToDelete = nil
+            }
+        } message: {
+            Text("This will remove the selected item from favorites.")
         }
     }
 
-    private func playlistName(for id: UUID) -> String {
-        playlists.first(where: { $0.id == id })?.name ?? "Liste"
-    }
-
-    private func playlist(for id: UUID) -> Playlist? {
-        playlists.first(where: { $0.id == id })
-    }
-
-    private func makeClient(for playlist: Playlist) -> XtreamAPIClient? {
-        guard let url = URL(string: playlist.baseURL) else { return nil }
-        return XtreamAPIClient(baseURL: url, username: playlist.username, password: playlist.password)
-    }
-
-    private func makeURL(for item: FavoriteItem, client: XtreamAPIClient) -> URL? {
-        switch item.type {
-        case MediaType.live.rawValue:
-            return client.makeStreamURL(streamId: item.streamId)
-        case MediaType.vod.rawValue:
-            return client.makeVodURL(streamId: item.streamId, container: nil)
-        default:
-            return nil
+    private func loadFavorites() {
+        do {
+            favorites = try repository.favorites()
+            errorMessage = nil
+        } catch {
+            errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
         }
     }
-}
 
-private struct FavoriteCardView: View {
-    let item: FavoriteItem
-    let playlistName: String
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(item.name)
-                .font(.headline)
-                .lineLimit(2)
-
-            Text(playlistName)
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-
-            Text(item.type.uppercased())
-                .font(.caption)
-                .foregroundStyle(.secondary)
+    private func removeFavorite(_ favorite: FavoriteItem) {
+        do {
+            try repository.removeFavorite(favorite)
+            loadFavorites()
+        } catch {
+            errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.blue.opacity(0.15))
-        )
-        .frame(height: 160)
     }
 }

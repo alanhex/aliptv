@@ -1,35 +1,30 @@
 import SwiftUI
 
 struct SeriesCardView: View {
-    let item: SeriesItem
+    let title: String
+    let subtitle: String?
+    let isSelected: Bool
+    let onSelect: () -> Void
 
     var body: some View {
-        VStack(spacing: 12) {
-            if let cover = item.cover, let url = URL(string: cover) {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    Color.gray.opacity(0.2)
+        Button(action: onSelect) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(title)
+                    .font(.headline)
+                    .lineLimit(1)
+                if let subtitle, !subtitle.isEmpty {
+                    Text(subtitle)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(2)
                 }
-                .frame(height: 100)
-            } else {
-                Image(systemName: "tv")
-                    .font(.system(size: 36, weight: .bold))
-                    .foregroundStyle(.blue)
             }
-
-            Text(item.name)
-                .font(.headline)
-                .multilineTextAlignment(.center)
-                .lineLimit(2)
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(isSelected ? Color.accentColor.opacity(0.25) : Color.clear)
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .contentShape(Rectangle())
         }
-        .padding(16)
-        .frame(height: 200)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.blue.opacity(0.15))
-        )
+        .buttonStyle(.plain)
     }
 }

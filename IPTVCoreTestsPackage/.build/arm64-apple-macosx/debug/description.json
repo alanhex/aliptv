@@ -1,0 +1,676 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.xctest/Contents/MacOS/IPTVCoreTestsPackagePackageTests",
+      "packagePath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage",
+      "productName" : "IPTVCoreTestsPackagePackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.IPTVCoreSupport-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/sources",
+      "importPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Sources/IPTVCoreSupport/PlaylistScopedCache.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Sources/IPTVCoreSupport/XtreamEpisodeParser.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "IPTVCoreSupport",
+      "moduleOutputPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules/IPTVCoreSupport.swiftmodule",
+      "objects" : [
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/PlaylistScopedCache.swift.o",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/XtreamEpisodeParser.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/include/IPTVCoreSupport-Swift.h",
+        "-swift-version",
+        "6",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "iptvcoretestspackage"
+      ],
+      "outputFileMapPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/PlaylistScopedCache.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/XtreamEpisodeParser.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules/IPTVCoreSupport.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Sources/IPTVCoreSupport/PlaylistScopedCache.swift",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Sources/IPTVCoreSupport/XtreamEpisodeParser.swift"
+      ],
+      "tempsPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.IPTVCoreSupportTests-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/sources",
+      "importPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Tests/IPTVCoreSupportTests/EpisodeParserTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Tests/IPTVCoreSupportTests/PlaylistScopedCacheTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules/IPTVCoreSupport.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "IPTVCoreSupportTests",
+      "moduleOutputPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules/IPTVCoreSupportTests.swiftmodule",
+      "objects" : [
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/EpisodeParserTests.swift.o",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/PlaylistScopedCacheTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "6",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "iptvcoretestspackage"
+      ],
+      "outputFileMapPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/EpisodeParserTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/PlaylistScopedCacheTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules/IPTVCoreSupportTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Tests/IPTVCoreSupportTests/EpisodeParserTests.swift",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Tests/IPTVCoreSupportTests/PlaylistScopedCacheTests.swift"
+      ],
+      "tempsPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.IPTVCoreTestsPackagePackageTests-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/sources",
+      "importPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules/IPTVCoreSupportTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "IPTVCoreTestsPackagePackageTests",
+      "moduleOutputPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules/IPTVCoreTestsPackagePackageTests.swiftmodule",
+      "objects" : [
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/include/IPTVCoreTestsPackagePackageTests-Swift.h",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "iptvcoretestspackage"
+      ],
+      "outputFileMapPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules/IPTVCoreTestsPackagePackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "IPTVCoreSupport" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "IPTVCoreSupport",
+      "-package-name",
+      "iptvcoretestspackage",
+      "-c",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Sources/IPTVCoreSupport/PlaylistScopedCache.swift",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Sources/IPTVCoreSupport/XtreamEpisodeParser.swift",
+      "-I",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/include/IPTVCoreSupport-Swift.h",
+      "-swift-version",
+      "6",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "iptvcoretestspackage",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "IPTVCoreSupportTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "IPTVCoreSupportTests",
+      "-package-name",
+      "iptvcoretestspackage",
+      "-c",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Tests/IPTVCoreSupportTests/EpisodeParserTests.swift",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Tests/IPTVCoreSupportTests/PlaylistScopedCacheTests.swift",
+      "-I",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "6",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "iptvcoretestspackage",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "IPTVCoreTestsPackagePackageTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "IPTVCoreTestsPackagePackageTests",
+      "-package-name",
+      "iptvcoretestspackage",
+      "-c",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.derived/runner.swift",
+      "-I",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/include/IPTVCoreTestsPackagePackageTests-Swift.h",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "iptvcoretestspackage",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "IPTVCoreSupport" : [
+
+    ],
+    "IPTVCoreSupportTests" : [
+      "IPTVCoreSupport"
+    ],
+    "IPTVCoreTestsPackagePackageTests" : [
+      "IPTVCoreSupportTests",
+      "IPTVCoreSupport"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Sources/IPTVCoreSupport/PlaylistScopedCache.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Sources/IPTVCoreSupport/XtreamEpisodeParser.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/sources"
+    },
+    "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Tests/IPTVCoreSupportTests/EpisodeParserTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/Tests/IPTVCoreSupportTests/PlaylistScopedCacheTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/sources"
+    },
+    "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/sources"
+    },
+    "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/PlaylistScopedCache.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupport.build/XtreamEpisodeParser.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/EpisodeParserTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreSupportTests.build/PlaylistScopedCacheTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/runner.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

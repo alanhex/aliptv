@@ -1,19 +1,64 @@
 import Foundation
+import SwiftData
 
-struct Stream: Identifiable, Codable, Hashable {
-    let id: Int
-    let name: String
-    let streamIcon: String?
-    let streamType: String?
-    let categoryId: String?
-    let containerExtension: String?
+@Model
+final class Stream {
+    @Attribute(.unique) var cacheKey: String
+    var playlistID: UUID
+    var mediaTypeRaw: String
+    var streamID: String
+    var categoryID: String
+    var title: String
+    var streamURL: String
+    var logoURL: String?
+    var updatedAt: Date
 
-    enum CodingKeys: String, CodingKey {
-        case id = "stream_id"
-        case name
-        case streamIcon = "stream_icon"
-        case streamType = "stream_type"
-        case categoryId = "category_id"
-        case containerExtension = "container_extension"
+    init(
+        playlistID: UUID,
+        mediaType: MediaType,
+        streamID: String,
+        categoryID: String,
+        title: String,
+        streamURL: String,
+        logoURL: String? = nil,
+        updatedAt: Date = .now
+    ) {
+        self.playlistID = playlistID
+        self.mediaTypeRaw = mediaType.rawValue
+        self.streamID = streamID
+        self.categoryID = categoryID
+        self.title = title
+        self.streamURL = streamURL
+        self.logoURL = logoURL
+        self.updatedAt = updatedAt
+        self.cacheKey = "\(playlistID.uuidString)|\(mediaType.rawValue)|\(categoryID)|\(streamID)"
+    }
+
+    var mediaType: MediaType {
+        MediaType(rawValue: mediaTypeRaw) ?? .live
+    }
+
+    var asPlayable: PlayableItem {
+        PlayableItem(
+            id: "\(playlistID.uuidString)|\(mediaTypeRaw)|\(streamID)",
+            title: title,
+            subtitle: mediaType.displayName,
+            streamURL: streamURL,
+            mediaType: mediaType,
+            playlistID: playlistID
+        )
+    }
+}
+
+struct PlayableItem: Hashable, Identifiable {
+    let id: String
+    let title: String
+    let subtitle: String
+    let streamURL: String
+    let mediaType: MediaType
+    let playlistID: UUID
+
+    var favoriteKey: String {
+        "\(playlistID.uuidString)|\(mediaType.rawValue)|\(id)|\(streamURL)"
     }
 }

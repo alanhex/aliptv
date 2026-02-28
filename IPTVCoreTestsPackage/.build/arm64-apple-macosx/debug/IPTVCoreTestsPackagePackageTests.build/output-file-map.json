@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/master.swiftdeps"
+  },
+  "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.derived/runner.swift": {
+    "dependencies": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/runner.d",
+    "object": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/alanalvarez/Documents/CodexFolder/XtreamTV/IPTVCoreTestsPackage/.build/arm64-apple-macosx/debug/IPTVCoreTestsPackagePackageTests.build/runner.dia"
+  }
+}

@@ -6,6 +6,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA1A11111111111111111134 /* KSPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = AA1A90000000000000000002 /* KSPlayer */; };
 		AA1A11111111111111111111 /* XtreamTVApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000001 /* XtreamTVApp.swift */; };
 		AA1A11111111111111111112 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000002 /* LoginView.swift */; };
 		AA1A11111111111111111113 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000003 /* DashboardView.swift */; };
@@ -193,12 +194,16 @@
 				AA1A40000000000000000000 /* Sources */,
 				AA1A40000000000000000001 /* Frameworks */,
 				AA1A40000000000000000002 /* Resources */,
+				AA1A40000000000000000003 /* Fix Embedded Framework IDs */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = XtreamTV;
+			packageProductDependencies = (
+				AA1A90000000000000000002 /* KSPlayer */,
+			);
 			productName = XtreamTV;
 			productReference = AA1A00000000000000000000 /* XtreamTV.app */;
 			productType = "com.apple.product-type.application";
@@ -226,6 +231,9 @@
 				Base,
 			);
 			mainGroup = AA1A20000000000000000000;
+			packageReferences = (
+				AA1A90000000000000000001 /* XCRemoteSwiftPackageReference "KSPlayer" */,
+			);
 			productRefGroup = AA1A20000000000000000000;
 			projectDirPath = "";
 			projectRoot = "";
@@ -245,6 +253,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AA1A40000000000000000003 /* Fix Embedded Framework IDs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Fix Embedded Framework IDs";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "DERIVED_DATA_DIR=\"${BUILD_DIR%/Build/Products}\"\nSOURCE_XCFRAMEWORK_DIR=\"${DERIVED_DATA_DIR}/SourcePackages/checkouts/FFmpegKit/Sources/libshaderc_combined.xcframework\"\n\nif [ -d \"$SOURCE_XCFRAMEWORK_DIR\" ]; then\n  find \"$SOURCE_XCFRAMEWORK_DIR\" -type f -path \"*/libshaderc_combined.framework/Info.plist\" -print0 2>/dev/null | while IFS= read -r -d '' plist; do\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.kintan.ksplayer.libshaderccombined\" \"$plist\" >/dev/null 2>&1 || true\n  done\nfi\n\nFRAMEWORKS_DIR=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}/Frameworks\"\nif [ ! -d \"$FRAMEWORKS_DIR\" ]; then\n  exit 0\nfi\n\nfor plist in \"$FRAMEWORKS_DIR\"/*.framework/Info.plist; do\n  [ -f \"$plist\" ] || continue\n  bundle_id=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleIdentifier\" \"$plist\" 2>/dev/null || true)\n  case \"$bundle_id\" in\n    com.kintan.*|com.mpvkit.*|${PRODUCT_BUNDLE_IDENTIFIER}.vendor.*|*_*)\n      suffix=${bundle_id##*.}\n      suffix=$(echo \"$suffix\" | tr '_' '-')\n      /usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier ${PRODUCT_BUNDLE_IDENTIFIER}.vendor.${suffix}\" \"$plist\" >/dev/null 2>&1 || true\n      ;;\n  esac\ndone\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AA1A40000000000000000000 /* Sources */ = {
@@ -295,10 +324,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA1A11111111111111111134 /* KSPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AA1A90000000000000000001 /* XCRemoteSwiftPackageReference "KSPlayer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kingslay/KSPlayer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AA1A90000000000000000002 /* KSPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA1A90000000000000000001 /* XCRemoteSwiftPackageReference "KSPlayer" */;
+			productName = KSPlayer;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AA1A70000000000000000000 /* Debug */ = {
@@ -314,6 +363,7 @@
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Debug;
 		};
