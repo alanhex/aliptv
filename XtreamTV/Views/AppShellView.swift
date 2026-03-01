@@ -8,16 +8,16 @@ struct AppShellView: View {
     @StateObject private var dashboardViewModel = DashboardViewModel()
     @StateObject private var playerViewModel = PlayerViewModel()
     @State private var selectedPlayable: PlayableItem?
-    @State private var compactSidebarForMovies = false
+    @State private var compactSidebarForMedia = false
 
     var body: some View {
         HStack(spacing: 0) {
             SidebarView(
                 playlists: playlists,
-                compact: isMovieDestination && compactSidebarForMovies,
+                compact: isMediaDestination && compactSidebarForMedia,
                 onRequestExpand: {
-                    if compactSidebarForMovies {
-                        compactSidebarForMovies = false
+                    if compactSidebarForMedia {
+                        compactSidebarForMedia = false
                     }
                 },
                 selectedDestination: $dashboardViewModel.selectedDestination,
@@ -36,7 +36,7 @@ struct AppShellView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding(.leading, 28)
                 .padding(.trailing, 28)
-                .padding(.top, isMovieDestination && compactSidebarForMovies ? 34 : 22)
+                .padding(.top, isMediaDestination && compactSidebarForMedia ? 34 : 22)
                 .padding(.bottom, 22)
         }
         .ignoresSafeArea()
@@ -58,10 +58,10 @@ struct AppShellView: View {
             dashboardViewModel.ensureValidSelection(playlists: newValue)
         }
         .onChange(of: dashboardViewModel.selectedDestination) { _, newValue in
-            if case let .playlistMedia(_, mediaType) = newValue, mediaType == .movie {
-                compactSidebarForMovies = true
+            if case let .playlistMedia(_, mediaType) = newValue, mediaType == .movie || mediaType == .series {
+                compactSidebarForMedia = true
             } else {
-                compactSidebarForMovies = false
+                compactSidebarForMedia = false
             }
         }
     }
@@ -84,13 +84,17 @@ struct AppShellView: View {
         case .playlistMedia(let playlistID, let mediaType):
             if let playlist = playlists.first(where: { $0.id == playlistID }) {
                 if mediaType == .series {
-                    SeriesListView(playlist: playlist, onPlay: { selectedPlayable = $0 })
+                    SeriesListView(
+                        playlist: playlist,
+                        onPlay: { selectedPlayable = $0 },
+                        onSeriesFocusChange: { compactSidebarForMedia = $0 }
+                    )
                 } else {
                     StreamListView(
                         playlist: playlist,
                         mediaType: mediaType,
                         onPlay: { selectedPlayable = $0 },
-                        onMovieFocusChange: { compactSidebarForMovies = $0 }
+                        onMovieFocusChange: { compactSidebarForMedia = $0 }
                     )
                 }
             } else {
@@ -99,16 +103,16 @@ struct AppShellView: View {
         }
     }
 
-    private var isMovieDestination: Bool {
+    private var isMediaDestination: Bool {
         if case let .playlistMedia(_, mediaType) = dashboardViewModel.selectedDestination {
-            return mediaType == .movie
+            return mediaType == .movie || mediaType == .series
         }
         return false
     }
 
     private var sidebarWidth: CGFloat {
-        if isMovieDestination {
-            return compactSidebarForMovies ? 68 : 320
+        if isMediaDestination {
+            return compactSidebarForMedia ? 68 : 320
         }
         return 340
     }

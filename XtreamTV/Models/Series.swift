@@ -43,6 +43,10 @@ final class SeriesEpisode {
     var title: String
     var streamURL: String
     var overview: String?
+    var thumbnailURL: String?
+    var duration: String?
+    var airDate: String?
+    var rating: Double?
     var updatedAt: Date
 
     init(
@@ -54,6 +58,10 @@ final class SeriesEpisode {
         title: String,
         streamURL: String,
         overview: String? = nil,
+        thumbnailURL: String? = nil,
+        duration: String? = nil,
+        airDate: String? = nil,
+        rating: Double? = nil,
         updatedAt: Date = .now
     ) {
         self.playlistID = playlistID
@@ -64,6 +72,10 @@ final class SeriesEpisode {
         self.title = title
         self.streamURL = streamURL
         self.overview = overview
+        self.thumbnailURL = thumbnailURL
+        self.duration = duration
+        self.airDate = airDate
+        self.rating = rating
         self.updatedAt = updatedAt
         self.cacheKey = "\(playlistID.uuidString)|\(seriesID)|\(episodeID)"
     }

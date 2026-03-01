@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		41605B852F53660D00232FDE /* MovieDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41605B842F53660C00232FDE /* MovieDetailsViewModel.swift */; };
+		41605B872F54651500232FDE /* PosterTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41605B862F54651500232FDE /* PosterTile.swift */; };
 		AA1A11111111111111111111 /* XtreamTVApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000001 /* XtreamTVApp.swift */; };
 		AA1A11111111111111111112 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000002 /* LoginView.swift */; };
 		AA1A11111111111111111113 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000003 /* DashboardView.swift */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		41605B842F53660C00232FDE /* MovieDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModel.swift; sourceTree = "<group>"; };
+		41605B862F54651500232FDE /* PosterTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterTile.swift; sourceTree = "<group>"; };
 		AA1A00000000000000000000 /* XtreamTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = XtreamTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA1A00000000000000000001 /* XtreamTVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XtreamTVApp.swift; sourceTree = "<group>"; };
 		AA1A00000000000000000002 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				AA1A00000000000000000007 /* StreamCardView.swift */,
 				AA1A00000000000000000016 /* PlaylistCardView.swift */,
 				AA1A00000000000000000023 /* SeriesCardView.swift */,
+				41605B862F54651500232FDE /* PosterTile.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 			files = (
 				41605B852F53660D00232FDE /* MovieDetailsViewModel.swift in Sources */,
 				AA1A11111111111111111111 /* XtreamTVApp.swift in Sources */,
+				41605B872F54651500232FDE /* PosterTile.swift in Sources */,
 				AA1A11111111111111111112 /* LoginView.swift in Sources */,
 				AA1A11111111111111111113 /* DashboardView.swift in Sources */,
 				AA1A11111111111111111114 /* StreamListView.swift in Sources */,
@@ -341,7 +345,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = H97FG8HR3J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = XtreamTV/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.XtreamTV;
@@ -358,7 +362,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = H97FG8HR3J;
 				INFOPLIST_FILE = XtreamTV/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.XtreamTV;
 				PRODUCT_NAME = XtreamTV;

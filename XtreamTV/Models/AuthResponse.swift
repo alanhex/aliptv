@@ -206,6 +206,10 @@ struct XtreamEpisodeDTO: Hashable {
     let episodeNumber: Int
     let streamURL: String?
     let overview: String?
+    let thumbnailURL: String?
+    let duration: String?
+    let airDate: String?
+    let rating: Double?
 }
 
 enum PlaylistValidationStep: String, CaseIterable, Identifiable {

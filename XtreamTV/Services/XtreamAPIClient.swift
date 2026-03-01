@@ -286,7 +286,30 @@ final class XtreamAPIClient: XtreamAPIClientProtocol {
             directSource: directSource
         )
 
-        let overview = flexibleString(dictionary["plot"]) ?? flexibleString(info?["plot"])
+        let overview = flexibleString(dictionary["plot"])
+            ?? flexibleString(info?["plot"])
+            ?? flexibleString(dictionary["overview"])
+            ?? flexibleString(info?["overview"])
+            ?? flexibleString(dictionary["description"])
+            ?? flexibleString(info?["description"])
+
+        let thumbnailURL = flexibleString(info?["movie_image"])
+            ?? flexibleString(info?["cover_big"])
+            ?? flexibleString(dictionary["movie_image"])
+            ?? flexibleString(dictionary["cover_big"])
+
+        let duration = flexibleString(info?["duration"])
+            ?? flexibleString(dictionary["duration"])
+        let airDate = flexibleString(info?["air_date"])
+            ?? flexibleString(info?["releasedate"])
+            ?? flexibleString(dictionary["air_date"])
+        let rating: Double? = {
+            if let d = info?["rating"] as? Double { return d }
+            if let d = dictionary["rating"] as? Double { return d }
+            if let s = flexibleString(info?["rating"]), let d = Double(s) { return d }
+            if let s = flexibleString(dictionary["rating"]), let d = Double(s) { return d }
+            return nil
+        }()
 
         return XtreamEpisodeDTO(
             id: rawID,
@@ -294,7 +317,11 @@ final class XtreamAPIClient: XtreamAPIClientProtocol {
             season: season,
             episodeNumber: episodeNumber,
             streamURL: streamURL,
-            overview: overview
+            overview: overview,
+            thumbnailURL: thumbnailURL,
+            duration: duration,
+            airDate: airDate,
+            rating: rating
         )
     }
 
@@ -902,7 +929,11 @@ final class IPTVRepository: ObservableObject {
                 episodeNumber: episode.episodeNumber,
                 title: episode.title,
                 streamURL: url,
-                overview: episode.overview
+                overview: episode.overview,
+                thumbnailURL: episode.thumbnailURL,
+                duration: episode.duration,
+                airDate: episode.airDate,
+                rating: episode.rating
             )
             modelContext.insert(entity)
         }
