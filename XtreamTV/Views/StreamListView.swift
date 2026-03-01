@@ -137,7 +137,7 @@ struct StreamListView: View {
     private var header: some View {
         HStack {
             Text("\(playlist.name) · \(mediaType.displayName)")
-                .font(.largeTitle.bold())
+                .font(.title3.bold())
                 .lineLimit(1)
 
             Spacer()
@@ -150,7 +150,7 @@ struct StreamListView: View {
                 guard let viewModel else { return }
                 Task { await viewModel.refresh() }
             } label: {
-                Label("Refresh", systemImage: "arrow.clockwise")
+                Label("Reload", systemImage: "arrow.clockwise")
             }
             .buttonStyle(.bordered)
         }
@@ -159,7 +159,7 @@ struct StreamListView: View {
     private func categoryPane(viewModel: StreamListViewModel) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Categories")
-                .font(.title3.bold())
+                .font(.headline)
 
             if viewModel.categories.isEmpty {
                 ContentUnavailableView("No categories", systemImage: "square.grid.2x2")
@@ -202,17 +202,9 @@ struct StreamListView: View {
 
         return VStack(alignment: .leading, spacing: 12) {
             if let selected {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(selected.title)
-                        .font(.title2.bold())
-                        .lineLimit(1)
-                    if let details = streamBrowseDetails(selected), !details.isEmpty {
-                        Text(details)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .lineLimit(2)
-                    }
-                }
+                Text(selected.title)
+                    .font(.title2.bold())
+                    .lineLimit(1)
             }
 
             if viewModel.isCategoryLoading {
@@ -306,7 +298,7 @@ struct StreamListView: View {
     }
 
     private var movieGridColumnCount: Int {
-        moviePaneHasFocus ? 6 : 5
+        moviePaneHasFocus ? 7 : 6
     }
 
     private var movieGridColumns: [GridItem] {
@@ -376,10 +368,6 @@ struct StreamListView: View {
         if let genre = stream.genre?.trimmingCharacters(in: .whitespacesAndNewlines), !genre.isEmpty {
             parts.append(genre)
         }
-        if let rating = stream.rating?.trimmingCharacters(in: .whitespacesAndNewlines), !rating.isEmpty {
-            parts.append("Rating: \(rating)")
-        }
-
         let header = parts.joined(separator: " · ")
         let synopsis = stream.synopsis?.trimmingCharacters(in: .whitespacesAndNewlines)
 
@@ -431,7 +419,7 @@ private struct MovieDetailsView: View {
                     Spacer()
 
                     // Title
-                    Text(viewModel.movie.title.isEmpty ? "Titre indisponible" : viewModel.movie.title)
+                    Text(viewModel.movie.title.isEmpty ? "Title unavailable" : viewModel.movie.title)
                         .font(.system(size: 58, weight: .bold, design: .rounded))
                         .lineLimit(2)
                         .foregroundStyle(.white)
@@ -457,7 +445,7 @@ private struct MovieDetailsView: View {
                     Button {
                         onPlay()
                     } label: {
-                        Label("Jouer le film", systemImage: "play.fill")
+                        Label("Play", systemImage: "play.fill")
                             .font(.title3.weight(.semibold))
                             .padding(.horizontal, 28)
                             .padding(.vertical, 12)
@@ -559,9 +547,6 @@ private struct MovieDetailsView: View {
         if let duration = viewModel.displayDuration, !duration.isEmpty {
             items.append(duration)
         }
-        if let rating = viewModel.displayRating, !rating.isEmpty {
-            items.append("Note \(rating)")
-        }
         return items
     }
 
@@ -572,12 +557,12 @@ private struct MovieDetailsView: View {
         if viewModel.displayDirector != nil || viewModel.displayCast != nil {
             VStack(alignment: .leading, spacing: 6) {
                 if let director = viewModel.displayDirector {
-                    Text("Realisateur: \(director)")
+                    Text("Director: \(director)")
                         .font(.subheadline)
                         .foregroundStyle(.white.opacity(0.7))
                 }
                 if let cast = viewModel.displayCast {
-                    Text("Avec: \(cast)")
+                    Text("Cast: \(cast)")
                         .font(.subheadline)
                         .foregroundStyle(.white.opacity(0.7))
                         .lineLimit(2)

@@ -131,7 +131,7 @@ struct SidebarView: View {
             .focused($focusedRow, equals: .playlistHeader(playlist.id))
 
             if expandedPlaylists.contains(playlist.id) {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 14) {
                     mediaRow(playlist: playlist, mediaType: .live)
                     mediaRow(playlist: playlist, mediaType: .series)
                     mediaRow(playlist: playlist, mediaType: .movie)

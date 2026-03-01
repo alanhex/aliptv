@@ -34,9 +34,10 @@ struct AppShellView: View {
 
             detailContent
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.leading, isMovieDestination && compactSidebarForMovies ? 8 : 28)
+                .padding(.leading, 28)
                 .padding(.trailing, 28)
-                .padding(.vertical, 22)
+                .padding(.top, isMovieDestination && compactSidebarForMovies ? 34 : 22)
+                .padding(.bottom, 22)
         }
         .ignoresSafeArea()
         .background(
