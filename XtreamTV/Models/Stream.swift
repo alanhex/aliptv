@@ -17,6 +17,16 @@ final class Stream {
     var rating: String?
     var updatedAt: Date
 
+    // Enrichment fields (populated by get_vod_info)
+    var backdropURL: String?
+    var duration: String?
+    var director: String?
+    var cast: String?
+    var tmdbID: String?
+    var youtubeTrailerID: String?
+    var containerExtension: String?
+    var enrichedAt: Date?
+
     init(
         playlistID: UUID,
         mediaType: MediaType,

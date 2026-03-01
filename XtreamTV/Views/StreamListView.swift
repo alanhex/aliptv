@@ -14,6 +14,7 @@ struct StreamListView: View {
     @State private var selectedMovieKey: String?
     @State private var moviePaneHasFocus = false
     @State private var pendingSidebarExitFromMovieKey: String?
+    @State private var presentedMovieDetails: Stream?
 
     private struct NoScaleListButtonStyle: ButtonStyle {
         func makeBody(configuration: Configuration) -> some View {
@@ -109,6 +110,28 @@ struct StreamListView: View {
             }
         }
         .onMoveCommand(perform: handleMovieMoveCommand)
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { presentedMovieDetails != nil },
+                set: { isPresented in
+                    if !isPresented {
+                        presentedMovieDetails = nil
+                    }
+                }
+            )
+        ) {
+            if let movie = presentedMovieDetails {
+                MovieDetailsView(
+                    repository: repository,
+                    playlist: playlist,
+                    movie: movie,
+                    onPlay: {
+                        presentedMovieDetails = nil
+                        onPlay(movie.asPlayable)
+                    }
+                )
+            }
+        }
     }
 
     private var header: some View {
@@ -137,16 +160,6 @@ struct StreamListView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Categories")
                 .font(.title3.bold())
-
-            if mediaType == .movie {
-                HStack(spacing: 10) {
-                    quickChip("R")
-                    quickChip("L")
-                    quickChip("F")
-                    quickChip("T")
-                }
-                .padding(.bottom, 4)
-            }
 
             if viewModel.categories.isEmpty {
                 ContentUnavailableView("No categories", systemImage: "square.grid.2x2")
@@ -180,20 +193,8 @@ struct StreamListView: View {
                 .focusSection()
             }
         }
-        .frame(width: mediaType == .movie ? 304 : 332)
+        .frame(width: mediaType == .movie ? 380 : 332)
         .animation(.easeOut(duration: 0.2), value: moviePaneHasFocus)
-    }
-
-    private func quickChip(_ title: String) -> some View {
-        Text(title)
-            .font(.caption.bold())
-            .padding(.horizontal, 10)
-            .padding(.vertical, 6)
-            .background(Color.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(Color.white.opacity(0.1), lineWidth: 0.8)
-            }
     }
 
     private func moviePane(viewModel: StreamListViewModel) -> some View {
@@ -237,15 +238,15 @@ struct StreamListView: View {
                         ForEach(viewModel.streams, id: \.cacheKey) { stream in
                             Button {
                                 selectedMovieKey = stream.cacheKey
-                                onPlay(stream.asPlayable)
+                                presentedMovieDetails = stream
                             } label: {
                                 MoviePosterTile(
                                     title: stream.title,
                                     posterURL: stream.logoURL,
-                                    isSelected: selectedMovieKey == stream.cacheKey
+                                    isFocused: focusedMovieKey == stream.cacheKey
                                 )
                             }
-                            .buttonStyle(.plain)
+                            .buttonStyle(NoScaleListButtonStyle())
                             .focusEffectDisabled()
                             .focused($focusedMovieKey, equals: stream.cacheKey)
                         }
@@ -393,10 +394,218 @@ struct StreamListView: View {
     }
 }
 
+private struct MovieDetailsView: View {
+    @StateObject private var viewModel: MovieDetailsViewModel
+    let onPlay: () -> Void
+
+    @Environment(\.dismiss) private var dismiss
+
+    init(repository: IPTVRepository, playlist: Playlist, movie: Stream, onPlay: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: MovieDetailsViewModel(
+            repository: repository,
+            playlist: playlist,
+            movie: movie
+        ))
+        self.onPlay = onPlay
+    }
+
+    var body: some View {
+        GeometryReader { geo in
+            ZStack {
+                movieBackdrop
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
+
+                LinearGradient(
+                    colors: [
+                        Color.black.opacity(0.85),
+                        Color.black.opacity(0.5),
+                        Color.black.opacity(0.1)
+                    ],
+                    startPoint: .bottom,
+                    endPoint: .top
+                )
+
+                // Content
+                VStack(alignment: .leading, spacing: 16) {
+                    Spacer()
+
+                    // Title
+                    Text(viewModel.movie.title.isEmpty ? "Titre indisponible" : viewModel.movie.title)
+                        .font(.system(size: 58, weight: .bold, design: .rounded))
+                        .lineLimit(2)
+                        .foregroundStyle(.white)
+                        .shadow(color: .black.opacity(0.8), radius: 12, y: 4)
+
+                    // Metadata badges
+                    metadataBadgesRow
+
+                    // Synopsis
+                    if viewModel.isEnriching && viewModel.displaySynopsis == nil {
+                        ProgressView()
+                            .tint(.white)
+                    } else if let synopsis = viewModel.displaySynopsis, !synopsis.isEmpty {
+                        Text(synopsis)
+                            .font(.title3)
+                            .foregroundStyle(.white.opacity(0.95))
+                            .lineLimit(5)
+                            .frame(maxWidth: 800, alignment: .leading)
+                            .shadow(color: .black.opacity(0.6), radius: 6, y: 2)
+                    }
+
+                    // Play button
+                    Button {
+                        onPlay()
+                    } label: {
+                        Label("Jouer le film", systemImage: "play.fill")
+                            .font(.title3.weight(.semibold))
+                            .padding(.horizontal, 28)
+                            .padding(.vertical, 12)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.white)
+                    .foregroundStyle(.black)
+                    .shadow(color: .black.opacity(0.4), radius: 8, y: 2)
+
+                    // Director & Cast
+                    directorAndCastRow
+                }
+                .frame(maxWidth: 900, alignment: .leading)
+                .padding(.leading, 80)
+                .padding(.bottom, 80)
+                .frame(width: geo.size.width, height: geo.size.height, alignment: .bottomLeading)
+
+                // Close button
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 34, weight: .semibold))
+                                .foregroundStyle(.white.opacity(0.95))
+                                .shadow(color: .black.opacity(0.6), radius: 8, y: 3)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .padding(.top, 28)
+                    .padding(.trailing, 34)
+                    Spacer()
+                }
+                .frame(width: geo.size.width, height: geo.size.height)
+            }
+        }
+        .background(Color.black)
+        .ignoresSafeArea()
+        .task {
+            await viewModel.enrichIfNeeded()
+        }
+    }
+
+    // MARK: - Backdrop
+
+    @ViewBuilder
+    private var movieBackdrop: some View {
+        let urlString = (viewModel.movie.backdropURL ?? viewModel.movie.logoURL)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        if let urlString, let url = URL(string: urlString), !urlString.isEmpty {
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                default:
+                    fallbackBackground
+                }
+            }
+        } else {
+            fallbackBackground
+        }
+    }
+
+    // MARK: - Metadata Badges
+
+    @ViewBuilder
+    private var metadataBadgesRow: some View {
+        let items = metadataBadgeItems
+        if !items.isEmpty {
+            HStack(spacing: 10) {
+                ForEach(items, id: \.self) { item in
+                    Text(item)
+                        .font(.subheadline.weight(.semibold))
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Capsule())
+                        .foregroundStyle(.white.opacity(0.95))
+                }
+            }
+            .shadow(color: .black.opacity(0.4), radius: 4, y: 2)
+        }
+    }
+
+    private var metadataBadgeItems: [String] {
+        var items: [String] = []
+        if let genre = viewModel.displayGenre, !genre.isEmpty {
+            for g in genre.split(separator: ",").map({ $0.trimmingCharacters(in: .whitespaces) }) {
+                if !g.isEmpty { items.append(g) }
+            }
+        }
+        if let year = viewModel.displayYear, !year.isEmpty {
+            items.append(year)
+        }
+        if let duration = viewModel.displayDuration, !duration.isEmpty {
+            items.append(duration)
+        }
+        if let rating = viewModel.displayRating, !rating.isEmpty {
+            items.append("Note \(rating)")
+        }
+        return items
+    }
+
+    // MARK: - Director & Cast
+
+    @ViewBuilder
+    private var directorAndCastRow: some View {
+        if viewModel.displayDirector != nil || viewModel.displayCast != nil {
+            VStack(alignment: .leading, spacing: 6) {
+                if let director = viewModel.displayDirector {
+                    Text("Realisateur: \(director)")
+                        .font(.subheadline)
+                        .foregroundStyle(.white.opacity(0.7))
+                }
+                if let cast = viewModel.displayCast {
+                    Text("Avec: \(cast)")
+                        .font(.subheadline)
+                        .foregroundStyle(.white.opacity(0.7))
+                        .lineLimit(2)
+                }
+            }
+            .frame(maxWidth: 800, alignment: .leading)
+            .shadow(color: .black.opacity(0.4), radius: 4, y: 2)
+        }
+    }
+
+    // MARK: - Fallback
+
+    private var fallbackBackground: some View {
+        LinearGradient(
+            colors: [
+                Color(.sRGB, red: 0.08, green: 0.09, blue: 0.12, opacity: 1),
+                Color(.sRGB, red: 0.03, green: 0.03, blue: 0.04, opacity: 1)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+}
+
 private struct MoviePosterTile: View {
     let title: String
     let posterURL: String?
-    let isSelected: Bool
+    let isFocused: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -405,16 +614,16 @@ private struct MoviePosterTile: View {
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .overlay {
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .stroke(isSelected ? Color.accentColor.opacity(0.85) : Color.white.opacity(0.08), lineWidth: isSelected ? 1.2 : 0.6)
+                        .stroke(isFocused ? Color.white.opacity(0.95) : Color.white.opacity(0.08), lineWidth: isFocused ? 3 : 0.6)
                 }
-                .scaleEffect(isSelected ? 1.008 : 1)
 
             Text(title)
                 .font(.headline)
                 .lineLimit(2)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(isFocused ? Color.white : Color.white.opacity(0.9))
         }
-        .animation(.easeOut(duration: 0.16), value: isSelected)
+        .animation(.easeOut(duration: 0.14), value: isFocused)
     }
 
     @ViewBuilder

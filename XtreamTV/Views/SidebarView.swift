@@ -46,12 +46,15 @@ struct SidebarView: View {
                     navButton(label: String(localized: "sidebar.add_playlist", defaultValue: "Add Playlist"), icon: "plus.circle", destination: .addPlaylist)
                 }
             }
-            .padding(.leading, compact ? 6 : 8)
+            .padding(.leading, compact ? 24 : 24)
             .padding(.trailing, compact ? 8 : 12)
-            .padding(.vertical, compact ? 10 : 14)
+            .padding(.top, compact ? 34 : 34)
+            .padding(.bottom, compact ? 14 : 14)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .scrollIndicators(.hidden)
+        .scrollClipDisabled()
+        .contentMargins(0)
         .clipped()
         .focusSection()
         .onAppear {
@@ -101,19 +104,19 @@ struct SidebarView: View {
             Button {
                 togglePlaylist(playlist.id)
             } label: {
-                HStack(spacing: 10) {
+                HStack(spacing: 14) {
                     Image(systemName: "circle.fill")
                         .font(.caption2)
                         .foregroundStyle(Color.pink)
                     Text(playlist.name)
-                        .font(.headline.weight(.semibold))
+                        .font(.subheadline.weight(.semibold))
                         .lineLimit(1)
                     Spacer(minLength: 0)
                     Image(systemName: expandedPlaylists.contains(playlist.id) ? "chevron.down" : "chevron.right")
-                        .font(.caption.weight(.semibold))
+                        .font(.caption2.weight(.semibold))
                 }
-                .padding(.horizontal, 14)
-                .frame(height: 46)
+                .padding(.horizontal, 12)
+                .frame(height: 48)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(rowForeground(isFocused: isFocused))
                 .background(rowBackground(isFocused: isFocused, isSelected: isSelected))
@@ -148,7 +151,7 @@ struct SidebarView: View {
             selectedDestination = destination
         } label: {
             rowContent(label: mediaType.displayName, icon: symbol(for: mediaType), isFocused: isFocused, isSelected: isSelected)
-                .frame(height: 42)
+                .frame(height: 44)
         }
         .buttonStyle(SidebarNoScaleButtonStyle())
         .focusEffectDisabled()
@@ -172,17 +175,17 @@ struct SidebarView: View {
     }
 
     private func rowContent(label: String, icon: String, isFocused: Bool, isSelected: Bool) -> some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 14) {
             Image(systemName: icon)
-                .font(.subheadline.weight(.semibold))
-                .frame(width: 18)
+                .font(.caption.weight(.semibold))
+                .frame(width: 16)
             Text(label)
-                .font(.headline.weight(.semibold))
+                .font(.subheadline.weight(.semibold))
                 .lineLimit(1)
             Spacer(minLength: 0)
         }
-        .padding(.horizontal, 14)
-        .frame(height: 44)
+        .padding(.horizontal, 12)
+        .frame(height: 48)
         .frame(maxWidth: .infinity, alignment: .leading)
         .foregroundStyle(rowForeground(isFocused: isFocused))
         .background(rowBackground(isFocused: isFocused, isSelected: isSelected))

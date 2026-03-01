@@ -38,6 +38,7 @@ struct AppShellView: View {
                 .padding(.trailing, 28)
                 .padding(.vertical, 22)
         }
+        .ignoresSafeArea()
         .background(
             LinearGradient(
                 colors: [
@@ -106,9 +107,9 @@ struct AppShellView: View {
 
     private var sidebarWidth: CGFloat {
         if isMovieDestination {
-            return compactSidebarForMovies ? 68 : 340
+            return compactSidebarForMovies ? 68 : 320
         }
-        return 400
+        return 340
     }
 
     private func openSeries(playlistID: UUID, seriesID: String) {

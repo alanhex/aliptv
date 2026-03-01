@@ -1,12 +1,13 @@
 // !$*UTF8*$!
 {
 	archiveVersion = 1;
-	classes = {};
+	classes = {
+	};
 	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA1A11111111111111111134 /* KSPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = AA1A90000000000000000002 /* KSPlayer */; };
+		41605B852F53660D00232FDE /* MovieDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41605B842F53660C00232FDE /* MovieDetailsViewModel.swift */; };
 		AA1A11111111111111111111 /* XtreamTVApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000001 /* XtreamTVApp.swift */; };
 		AA1A11111111111111111112 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000002 /* LoginView.swift */; };
 		AA1A11111111111111111113 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000003 /* DashboardView.swift */; };
@@ -42,9 +43,11 @@
 		AA1A11111111111111111131 /* SeriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000022 /* SeriesListView.swift */; };
 		AA1A11111111111111111132 /* SeriesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000023 /* SeriesCardView.swift */; };
 		AA1A11111111111111111133 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A00000000000000000024 /* FavoritesView.swift */; };
+		AA1A11111111111111111134 /* KSPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = AA1A90000000000000000002 /* KSPlayer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41605B842F53660C00232FDE /* MovieDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModel.swift; sourceTree = "<group>"; };
 		AA1A00000000000000000000 /* XtreamTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = XtreamTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA1A00000000000000000001 /* XtreamTVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XtreamTVApp.swift; sourceTree = "<group>"; };
 		AA1A00000000000000000002 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -83,6 +86,17 @@
 		AA1A00000000000000000023 /* SeriesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesCardView.swift; sourceTree = "<group>"; };
 		AA1A00000000000000000024 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA1A40000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA1A11111111111111111134 /* KSPlayer in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		AA1A20000000000000000000 = {
@@ -145,6 +159,7 @@
 				AA1A0000000000000000000A /* StreamListViewModel.swift */,
 				AA1A0000000000000000000B /* PlayerViewModel.swift */,
 				AA1A0000000000000000001A /* SeriesListViewModel.swift */,
+				41605B842F53660C00232FDE /* MovieDetailsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -280,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41605B852F53660D00232FDE /* MovieDetailsViewModel.swift in Sources */,
 				AA1A11111111111111111111 /* XtreamTVApp.swift in Sources */,
 				AA1A11111111111111111112 /* LoginView.swift in Sources */,
 				AA1A11111111111111111113 /* DashboardView.swift in Sources */,
@@ -318,36 +334,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		AA1A40000000000000000001 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA1A11111111111111111134 /* KSPlayer in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		AA1A90000000000000000001 /* XCRemoteSwiftPackageReference "KSPlayer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kingslay/KSPlayer.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.4;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		AA1A90000000000000000002 /* KSPlayer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA1A90000000000000000001 /* XCRemoteSwiftPackageReference "KSPlayer" */;
-			productName = KSPlayer;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AA1A70000000000000000000 /* Debug */ = {
@@ -426,6 +412,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AA1A90000000000000000001 /* XCRemoteSwiftPackageReference "KSPlayer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kingslay/KSPlayer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AA1A90000000000000000002 /* KSPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA1A90000000000000000001 /* XCRemoteSwiftPackageReference "KSPlayer" */;
+			productName = KSPlayer;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AA1A60000000000000000000 /* Project object */;
 }

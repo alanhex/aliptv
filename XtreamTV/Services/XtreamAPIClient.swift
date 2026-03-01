@@ -11,6 +11,7 @@ protocol XtreamAPIClientProtocol {
         seriesID: String,
         defaultContainerExtension: String
     ) async throws -> (episodes: [XtreamEpisodeDTO], unsupportedReason: String?)
+    func fetchVODInfo(credentials: PlaylistCredentials, vodID: String) async throws -> [String: Any]
 }
 
 final class XtreamAPIClient: XtreamAPIClientProtocol {
@@ -123,6 +124,27 @@ final class XtreamAPIClient: XtreamAPIClientProtocol {
         let infoMessage = (root["info"] as? [String: Any])?["message"] as? String
         let message = (root["message"] as? String) ?? infoMessage
         return (episodes, episodes.isEmpty ? message : nil)
+    }
+
+    func fetchVODInfo(credentials: PlaylistCredentials, vodID: String) async throws -> [String: Any] {
+        let data = try await performRequest(
+            credentials: credentials,
+            action: "get_vod_info",
+            extraQueryItems: [URLQueryItem(name: "vod_id", value: vodID)]
+        )
+
+        let jsonObject: Any
+        do {
+            jsonObject = try JSONSerialization.jsonObject(with: data)
+        } catch {
+            throw XtreamAPIError.decoding("Invalid VOD info payload.")
+        }
+
+        guard let root = jsonObject as? [String: Any] else {
+            throw XtreamAPIError.decoding("Unsupported VOD info structure.")
+        }
+
+        return root
     }
 
     private func performRequest(
@@ -277,22 +299,34 @@ final class XtreamAPIClient: XtreamAPIClientProtocol {
     }
 
     private func flexibleString(_ value: Any?) -> String? {
-        guard let value else { return nil }
-        if let value = value as? String { return value }
-        if let value = value as? Int { return String(value) }
-        if let value = value as? Double { return String(value) }
-        if let value = value as? NSNumber { return value.stringValue }
-        return nil
+        flexString(value)
     }
 
     private func flexibleInt(_ value: Any?) -> Int? {
-        guard let value else { return nil }
-        if let value = value as? Int { return value }
-        if let value = value as? Double { return Int(value) }
-        if let value = value as? String { return Int(value) }
-        if let value = value as? NSNumber { return value.intValue }
-        return nil
+        flexInt(value)
     }
+}
+
+func flexString(_ value: Any?) -> String? {
+    guard let value else { return nil }
+    if let value = value as? String { return value }
+    if let value = value as? Int { return String(value) }
+    if let value = value as? Double { return String(value) }
+    if let value = value as? NSNumber { return value.stringValue }
+    // Some servers wrap values in arrays (e.g. backdrop_path)
+    if let arr = value as? [Any], let first = arr.first {
+        return flexString(first)
+    }
+    return nil
+}
+
+func flexInt(_ value: Any?) -> Int? {
+    guard let value else { return nil }
+    if let value = value as? Int { return value }
+    if let value = value as? Double { return Int(value) }
+    if let value = value as? String { return Int(value) }
+    if let value = value as? NSNumber { return value.intValue }
+    return nil
 }
 
 func buildXtreamPlaybackURL(
@@ -877,6 +911,108 @@ final class IPTVRepository: ObservableObject {
         return .episodes(try episodes(playlistID: playlist.id, seriesID: series.seriesID))
     }
 
+    // MARK: - VOD Enrichment
+
+    func enrichVODInfo(playlist: Playlist, stream: Stream, force: Bool = false) async throws {
+        if !force, let enrichedAt = stream.enrichedAt {
+            let age = Date.now.timeIntervalSince(enrichedAt)
+            if age < 24 * 60 * 60 { return }
+        }
+
+        let credentials = playlist.credentials
+        let root = try await apiClient.fetchVODInfo(credentials: credentials, vodID: stream.streamID)
+
+        let info = root["info"] as? [String: Any] ?? [:]
+        let movieData = root["movie_data"] as? [String: Any] ?? [:]
+
+        // Backdrop: prefer TMDb landscape backdrop, then cover_big, then movie_image
+        // backdrop_path can live in info, movie_data, or root depending on the server
+        var backdrop: String?
+        let bdPath = flexString(info["backdrop_path"])
+            ?? flexString(movieData["backdrop_path"])
+            ?? flexString(root["backdrop_path"])
+        if let bdPath, !bdPath.isEmpty, bdPath != "/" {
+            if bdPath.hasPrefix("http") {
+                // Full TMDb URL – upgrade to original resolution for TV display
+                backdrop = bdPath.replacingOccurrences(
+                    of: #"image\.tmdb\.org/t/p/w\d+"#,
+                    with: "image.tmdb.org/t/p/original",
+                    options: .regularExpression
+                )
+            } else {
+                // TMDb relative path – build the full HD URL
+                let path = bdPath.hasPrefix("/") ? bdPath : "/\(bdPath)"
+                backdrop = "https://image.tmdb.org/t/p/original\(path)"
+            }
+        }
+        if backdrop == nil {
+            backdrop = flexString(info["cover_big"])
+        }
+        if backdrop == nil {
+            backdrop = flexString(movieData["cover_big"])
+        }
+        if backdrop == nil {
+            backdrop = flexString(info["movie_image"])
+        }
+        if let backdrop, !backdrop.isEmpty {
+            stream.backdropURL = backdrop
+        }
+
+        // Duration
+        if let durationSecs = flexInt(info["duration_secs"]), durationSecs > 0 {
+            stream.duration = formattedDuration(seconds: durationSecs)
+        } else if let durationStr = flexString(info["duration"]), !durationStr.isEmpty {
+            stream.duration = parseDurationString(durationStr)
+        }
+
+        // Director
+        if let director = flexString(info["director"]), !director.isEmpty {
+            stream.director = director
+        }
+
+        // Cast
+        let castValue = flexString(info["cast"]) ?? flexString(info["actors"])
+        if let castValue, !castValue.isEmpty {
+            stream.cast = castValue
+        }
+
+        // Enrich basic fields only if API provides richer data
+        let richSynopsis = flexString(info["description"]) ?? flexString(info["plot"])
+        if let richSynopsis, !richSynopsis.isEmpty,
+           richSynopsis.count > (stream.synopsis?.count ?? 0) {
+            stream.synopsis = richSynopsis
+        }
+
+        let richGenre = flexString(info["genre"])
+        if let richGenre, !richGenre.isEmpty {
+            stream.genre = richGenre
+        }
+
+        let releaseDate = flexString(info["releasedate"]) ?? flexString(info["release_date"])
+        if let releaseDate, !releaseDate.isEmpty {
+            let yearOnly = String(releaseDate.prefix(4))
+            stream.releaseYear = Int(yearOnly) != nil ? yearOnly : releaseDate
+        }
+
+        let enrichedRating = flexString(info["rating"]) ?? flexString(info["rating_5based"])
+        if let enrichedRating, !enrichedRating.isEmpty {
+            stream.rating = enrichedRating
+        }
+
+        if let tmdb = flexString(info["tmdb_id"]), !tmdb.isEmpty, tmdb != "0" {
+            stream.tmdbID = tmdb
+        }
+        if let trailer = flexString(info["youtube_trailer"]), !trailer.isEmpty {
+            stream.youtubeTrailerID = trailer
+        }
+        if let ext = flexString(movieData["container_extension"]), !ext.isEmpty {
+            stream.containerExtension = ext
+        }
+
+        stream.enrichedAt = .now
+        try modelContext.save()
+    }
+
     func deletePlaylist(_ playlist: Playlist) throws {
         try clearCache(for: playlist.id)
         try deleteFavorites(playlistID: playlist.id)
@@ -1121,4 +1257,29 @@ final class IPTVRepository: ObservableObject {
             modelContext.delete(entity)
         }
     }
+}
+
+// MARK: - Duration Formatting
+
+func formattedDuration(seconds: Int) -> String {
+    let hours = seconds / 3600
+    let minutes = (seconds % 3600) / 60
+    if hours > 0 {
+        return "\(hours)h \(minutes)min"
+    }
+    return "\(minutes)min"
+}
+
+func parseDurationString(_ raw: String) -> String {
+    let parts = raw.split(separator: ":").compactMap { Int($0) }
+    if parts.count == 3 {
+        return formattedDuration(seconds: parts[0] * 3600 + parts[1] * 60 + parts[2])
+    }
+    if parts.count == 2 {
+        return formattedDuration(seconds: parts[0] * 3600 + parts[1] * 60)
+    }
+    if parts.count == 1, let mins = parts.first, mins > 0 {
+        return formattedDuration(seconds: mins * 60)
+    }
+    return raw
 }

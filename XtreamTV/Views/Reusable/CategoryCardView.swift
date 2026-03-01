@@ -10,8 +10,9 @@ struct CategoryCardView: View {
             Image(systemName: "square.grid.2x2")
                 .frame(width: 20)
             Text(category.name)
-                .font(.headline.weight(.semibold))
+                .font(.subheadline.weight(.semibold))
                 .lineLimit(1)
+                .minimumScaleFactor(0.82)
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 12)
